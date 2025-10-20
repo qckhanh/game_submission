@@ -77,6 +77,75 @@
                 </div>
             </div>
 
+            <!-- Mini Map City View -->
+            <div class="mini-map-container">
+                <div class="mini-map-header">
+                    <h3>🗺️ Bản Đồ Thành Phố</h3>
+                    <div class="climate-indicator">
+                        <span id="climate-status">🌍 Khí hậu ổn định</span>
+                    </div>
+                </div>
+                <div class="city-map" id="city-map">
+                    <!-- Base Layer -->
+                    <div class="map-layer base-layer">
+                        <!-- Buildings -->
+                        <div class="building residential" id="residential-1">🏠</div>
+                        <div class="building residential" id="residential-2">🏡</div>
+                        <div class="building commercial" id="commercial-1">🏢</div>
+                        <div class="building commercial" id="commercial-2">🏬</div>
+
+                        <!-- Green Spaces -->
+                        <div class="green-space" id="park-1">🌳</div>
+                        <div class="green-space" id="park-2">🌲</div>
+                        <div class="green-space" id="park-3">🌿</div>
+
+                        <!-- Infrastructure -->
+                        <div class="infrastructure" id="road-1">🛣️</div>
+                        <div class="infrastructure" id="power-1">⚡</div>
+
+                        <!-- Industrial -->
+                        <div class="industrial hidden" id="factory-1">🏭</div>
+                        <div class="industrial hidden" id="factory-2">🏗️</div>
+
+                        <!-- Environmental Effects -->
+                        <div class="env-effect hidden" id="solar-panel">☀️</div>
+                        <div class="env-effect hidden" id="wind-turbine">💨</div>
+                        <div class="env-effect hidden" id="recycling">♻️</div>
+                    </div>
+
+                    <!-- Climate Effects Layer -->
+                    <div class="map-layer climate-effects">
+                        <div class="climate-effect pollution-cloud hidden" id="pollution-1">☁️</div>
+                        <div class="climate-effect pollution-cloud hidden" id="pollution-2">🌫️</div>
+                        <div class="climate-effect drought-area hidden" id="drought-1">🏜️</div>
+                        <div class="climate-effect flood-area hidden" id="flood-1">🌊</div>
+                        <div class="climate-effect smog hidden" id="smog-1">💨</div>
+                    </div>
+                </div>
+
+                <!-- Progress Indicators -->
+                <div class="progress-indicators">
+                    <div class="progress-item">
+                        <span class="indicator-icon">🏢</span>
+                        <span class="indicator-label">Phát triển</span>
+                        <div class="indicator-dots">
+                            <div class="dot" id="development-1"></div>
+                            <div class="dot" id="development-2"></div>
+                            <div class="dot" id="development-3"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <span class="indicator-icon">🌱</span>
+                        <span class="indicator-label">Sinh thái</span>
+                        <div class="indicator-dots">
+                            <div class="dot" id="ecology-1"></div>
+                            <div class="dot" id="ecology-2"></div>
+                            <div class="dot" id="ecology-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="stats-container">
                 <div class="stats-grid">
                     <div class="stat-item economy">
@@ -212,6 +281,30 @@
                         <div>💰 Kinh Tế: <span id="final-economy">0</span></div>
                         <div>🌿 Môi Trường: <span id="final-environment">0</span></div>
                         <div>😊 Hạnh Phúc: <span id="final-happiness">0</span></div>
+                    </div>
+                </div>
+
+                <!-- Sustainability Score Section -->
+                <div class="sustainability-section">
+                    <h3>🌱 Điểm Bền Vững & Tác Động Khí Hậu</h3>
+                    <div class="sustainability-score">
+                        <div class="score-display">
+                            <span class="score-value" id="sustainability-score">0</span>
+                            <span class="score-label">/100</span>
+                        </div>
+                        <div class="score-description" id="score-description"></div>
+                    </div>
+                    <div class="climate-impact">
+                        <div class="impact-prediction" id="impact-prediction"></div>
+                        <div class="real-world-data" id="real-world-data"></div>
+                    </div>
+
+                    <!-- Achievement System -->
+                    <div class="achievements-section">
+                        <h4>🏆 Thành Tựu Đạt Được:</h4>
+                        <div class="achievements-grid" id="achievements-list">
+                            <!-- Achievements will be populated here -->
+                        </div>
                     </div>
                 </div>
 

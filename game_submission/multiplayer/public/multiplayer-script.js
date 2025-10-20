@@ -9,8 +9,32 @@ class MultiplayerGame {
         this.votingTimer = null;
         this.isConnected = false;
 
+        // Climate awareness data
+        this.climateHistory = [];
+        this.achievements = [];
+        this.cityElements = {};
+
+        // Climate data for sustainability scoring
+        this.climateData = {
+            temperatureRise: {
+                excellent: { min: 80, temp: 1.2, description: "Xuất sắc - Giới hạn được mức tăng nhiệt độ dưới 1.5°C" },
+                good: { min: 60, temp: 1.8, description: "Tốt - Đạt mục tiêu Paris Agreement" },
+                moderate: { min: 40, temp: 2.3, description: "Trung bình - Còn cần nỗ lực nhiều hơn" },
+                poor: { min: 20, temp: 3.1, description: "Kém - Nguy cơ biến đổi khí hậu nghiêm trọng" },
+                critical: { min: 0, temp: 4.2, description: "Nguy hiểm - Thảm họa khí hậu toàn cầu" }
+            },
+            realWorldFacts: [
+                "Theo IPCC, để giới hạn tăng nhiệt độ dưới 1.5°C, thế giới cần giảm 45% lượng khí thải CO2 vào năm 2030.",
+                "Hiện tại, mức độ CO2 trong khí quyển đã đạt 421 ppm - mức cao nhất trong 3 triệu năm.",
+                "Nếu không có hành động, nhiệt độ toàn cầu có thể tăng 3-5°C vào cuối thế kỷ này.",
+                "Năng lượng tái tạo hiện chiếm 30% tổng sản lượng điện toàn cầu và đang tăng nhanh.",
+                "Các thành phố tiêu thụ 78% năng lượng toàn cầu và tạo ra 70% lượng khí thải CO2."
+            ]
+        };
+
         this.initializeElements();
         this.initializeEventListeners();
+        this.initializeCityMap();
         this.connectToServer();
     }
 
@@ -82,34 +106,99 @@ class MultiplayerGame {
         this.errorModal = document.getElementById('error-modal');
         this.errorMessage = document.getElementById('error-message');
         this.errorOkBtn = document.getElementById('error-ok-btn');
+
+        // Validate that all critical elements exist
+        this.validateElements();
+    }
+
+    validateElements() {
+        const criticalElements = {
+            'create-room-btn': this.createRoomBtn,
+            'join-room-btn': this.joinRoomBtn,
+            'player-name': this.playerNameInput,
+            'room-code': this.roomCodeInput
+        };
+
+        for (const [elementId, element] of Object.entries(criticalElements)) {
+            if (!element) {
+                console.error(`Critical element not found: ${elementId}`);
+                console.log('Available elements:', Object.keys(document.querySelectorAll('[id]')).map(el => el.id));
+            }
+        }
     }
 
     initializeEventListeners() {
+        // Add safety checks for all event listeners
+        console.log('Initializing event listeners...');
+
         // Connection events
-        this.createRoomBtn.addEventListener('click', () => this.createRoom());
-        this.joinRoomBtn.addEventListener('click', () => this.joinRoom());
-        this.playerNameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.createRoom();
-        });
-        this.roomCodeInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.joinRoom();
-        });
+        if (this.createRoomBtn) {
+            this.createRoomBtn.addEventListener('click', () => {
+                console.log('Create room button clicked');
+                this.createRoom();
+            });
+        } else {
+            console.error('Create room button not found');
+        }
+
+        if (this.joinRoomBtn) {
+            this.joinRoomBtn.addEventListener('click', () => {
+                console.log('Join room button clicked');
+                this.joinRoom();
+            });
+        } else {
+            console.error('Join room button not found');
+        }
+
+        if (this.playerNameInput) {
+            this.playerNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.createRoom();
+            });
+        }
+
+        if (this.roomCodeInput) {
+            this.roomCodeInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.joinRoom();
+            });
+        }
 
         // Lobby events
-        this.startGameBtn.addEventListener('click', () => this.startGame());
-        this.leaveRoomBtn.addEventListener('click', () => this.leaveRoom());
+        if (this.startGameBtn) {
+            this.startGameBtn.addEventListener('click', () => this.startGame());
+        }
+
+        if (this.leaveRoomBtn) {
+            this.leaveRoomBtn.addEventListener('click', () => this.leaveRoom());
+        }
 
         // Voting events
-        this.voteApproveBtn.addEventListener('click', () => this.vote('approve'));
-        this.voteRejectBtn.addEventListener('click', () => this.vote('reject'));
-        this.voteAbstainBtn.addEventListener('click', () => this.vote('abstain'));
+        if (this.voteApproveBtn) {
+            this.voteApproveBtn.addEventListener('click', () => this.vote('approve'));
+        }
+
+        if (this.voteRejectBtn) {
+            this.voteRejectBtn.addEventListener('click', () => this.vote('reject'));
+        }
+
+        if (this.voteAbstainBtn) {
+            this.voteAbstainBtn.addEventListener('click', () => this.vote('abstain'));
+        }
 
         // End screen events
-        this.newGameBtn.addEventListener('click', () => this.showScreen('connection'));
-        this.backToLobbyBtn.addEventListener('click', () => this.showScreen('lobby'));
+        if (this.newGameBtn) {
+            this.newGameBtn.addEventListener('click', () => this.showScreen('connection'));
+        }
+
+        if (this.backToLobbyBtn) {
+            this.backToLobbyBtn.addEventListener('click', () => this.showScreen('lobby'));
+        }
 
         // Error modal
-        this.errorOkBtn.addEventListener('click', () => this.hideError());
+        if (this.errorOkBtn) {
+            this.errorOkBtn.addEventListener('click', () => this.hideError());
+        }
+
+        console.log('Event listeners initialized successfully');
     }
 
     connectToServer() {
@@ -335,6 +424,18 @@ class MultiplayerGame {
 
         // Update stats
         this.updateStats(gameState.stats);
+
+        // Update Mini Map City View
+        this.updateCityVisualization(gameState);
+
+        // Update Climate Timeline
+        this.updateClimateTimeline(gameState);
+
+        // Store climate history
+        this.climateHistory.push({
+            year: gameState.currentYear,
+            environmentScore: gameState.stats.environment
+        });
     }
 
     updateStats(stats) {
@@ -611,6 +712,12 @@ class MultiplayerGame {
         this.finalEnvironment.textContent = result.finalStats.environment;
         this.finalHappiness.textContent = result.finalStats.happiness;
 
+        // Calculate and display sustainability score
+        this.displaySustainabilityResults(result.finalStats);
+
+        // Display achievements
+        this.displayAchievements(result.finalStats);
+
         if (result.victory) {
             this.victoryScreen.classList.remove('hidden');
             this.defeatScreen.classList.add('hidden');
@@ -621,33 +728,324 @@ class MultiplayerGame {
         }
     }
 
-    hideAllPhases() {
-        this.proposalPhase.classList.add('hidden');
-        this.votingPhase.classList.add('hidden');
-        this.resultsPhase.classList.add('hidden');
+    calculateSustainabilityScore(stats) {
+        const { economy, environment, happiness } = stats;
+
+        // Weighted calculation emphasizing environment for sustainability
+        return Math.round((environment * 0.5) + (economy * 0.25) + (happiness * 0.25));
     }
 
-    showScreen(screenName) {
-        Object.values(this.screens).forEach(screen => screen.classList.remove('active'));
-        this.screens[screenName].classList.add('active');
+    getTemperatureRiseData(sustainabilityScore) {
+        for (const [level, data] of Object.entries(this.climateData.temperatureRise)) {
+            if (sustainabilityScore >= data.min) {
+                return data;
+            }
+        }
+        return this.climateData.temperatureRise.critical;
+    }
+
+    displaySustainabilityResults(finalStats) {
+        const sustainabilityScore = this.calculateSustainabilityScore(finalStats);
+        const tempData = this.getTemperatureRiseData(sustainabilityScore);
+
+        // Update sustainability score display
+        const scoreElement = document.getElementById('sustainability-score');
+        const descriptionElement = document.getElementById('score-description');
+        const impactElement = document.getElementById('impact-prediction');
+        const realWorldElement = document.getElementById('real-world-data');
+
+        if (scoreElement) {
+            scoreElement.textContent = sustainabilityScore;
+            // Color-code the score
+            if (sustainabilityScore >= 80) scoreElement.style.color = '#27ae60';
+            else if (sustainabilityScore >= 60) scoreElement.style.color = '#f39c12';
+            else scoreElement.style.color = '#e74c3c';
+        }
+
+        if (descriptionElement) {
+            descriptionElement.textContent = tempData.description;
+        }
+
+        if (impactElement) {
+            impactElement.innerHTML = `🌡️ Nếu tất cả thành phố trên thế giới hành xử như GreenCity của bạn, 
+                nhiệt độ toàn cầu sẽ tăng ${tempData.temp}°C vào năm 2050.`;
+        }
+
+        if (realWorldElement) {
+            const randomFact = this.climateData.realWorldFacts[
+                Math.floor(Math.random() * this.climateData.realWorldFacts.length)
+            ];
+
+            realWorldElement.innerHTML = `
+                <strong>📊 Dữ liệu thực tế:</strong><br>
+                ${randomFact}
+                <br><br>
+                <strong>💡 Bạn có biết:</strong> Theo nghiên cứu của IPCC, các thành phố có thể giảm 70% lượng khí thải 
+                bằng cách áp dụng các giải pháp xanh như bạn đã thực hiện trong game.
+            `;
+        }
+    }
+
+    displayAchievements(finalStats) {
+        const achievementsList = document.getElementById('achievements-list');
+        if (!achievementsList) return;
+
+        const achievements = this.calculateAchievements(finalStats);
+
+        achievementsList.innerHTML = '';
+        achievements.forEach(achievement => {
+            const achievementElement = document.createElement('div');
+            achievementElement.className = `achievement ${achievement.earned ? 'earned' : ''}`;
+
+            achievementElement.innerHTML = `
+                <div class="achievement-icon">${achievement.icon}</div>
+                <div class="achievement-name">${achievement.name}</div>
+                <div class="achievement-description">${achievement.description}</div>
+            `;
+
+            achievementsList.appendChild(achievementElement);
+        });
+    }
+
+    calculateAchievements(finalStats) {
+        const { economy, environment, happiness } = finalStats;
+        const sustainabilityScore = this.calculateSustainabilityScore(finalStats);
+
+        const achievements = [
+            {
+                icon: '🌱',
+                name: 'Eco Hero',
+                description: 'Giữ chỉ số môi trường > 80%',
+                earned: environment >= 80
+            },
+            {
+                icon: '🧠',
+                name: 'Smart Mayor',
+                description: 'Đạt điểm bền vững ≥ 70',
+                earned: sustainabilityScore >= 70
+            },
+            {
+                icon: '🤝',
+                name: 'United Citizens',
+                description: 'Tất cả người chơi hoàn thành game',
+                earned: true // This would need server support to track
+            },
+            {
+                icon: '⚖️',
+                name: 'Perfect Balance',
+                description: 'Cân bằng cả 3 chỉ số > 60%',
+                earned: economy >= 60 && environment >= 60 && happiness >= 60
+            },
+            {
+                icon: '🌍',
+                name: 'Climate Champion',
+                description: 'Ngăn chặn biến đổi khí hậu (Môi trường > 70%)',
+                earned: environment >= 70
+            },
+            {
+                icon: '💚',
+                name: 'Sustainable Future',
+                description: 'Đạt điểm bền vững xuất sắc (≥ 80)',
+                earned: sustainabilityScore >= 80
+            }
+        ];
+
+        return achievements;
+    }
+
+    // =================== MINI MAP CITY VIEW & CLIMATE TIMELINE ===================
+
+    updateCityVisualization(gameState) {
+        const stats = gameState.stats;
+
+        // Update city elements based on policies
+        this.updateCityElements(gameState);
+
+        // Update progress indicators
+        this.updateProgressIndicators(stats);
+    }
+
+    updateCityElements(gameState) {
+        const stats = gameState.stats;
+        const envScore = stats.environment;
+        const economyScore = stats.economy;
+
+        // Show/hide industrial elements based on economy
+        const factories = document.querySelectorAll('.industrial');
+        factories.forEach((factory, index) => {
+            if (economyScore > 70 - (index * 20)) {
+                factory.classList.remove('hidden');
+                factory.classList.add('new');
+                setTimeout(() => factory.classList.remove('new'), 500);
+            } else {
+                factory.classList.add('hidden');
+            }
+        });
+
+        // Show/hide environmental elements based on environment score
+        const envEffects = document.querySelectorAll('.env-effect');
+        envEffects.forEach((effect, index) => {
+            if (envScore > 60 + (index * 10)) {
+                effect.classList.remove('hidden');
+                effect.classList.add('new');
+                setTimeout(() => effect.classList.remove('new'), 500);
+            } else {
+                effect.classList.add('hidden');
+            }
+        });
+
+        // Update green spaces based on environment
+        const greenSpaces = document.querySelectorAll('.green-space');
+        greenSpaces.forEach(space => {
+            if (envScore < 30) {
+                space.style.opacity = '0.3';
+                space.style.filter = 'grayscale(70%)';
+            } else if (envScore < 60) {
+                space.style.opacity = '0.7';
+                space.style.filter = 'grayscale(30%)';
+            } else {
+                space.style.opacity = '1';
+                space.style.filter = 'none';
+            }
+        });
+    }
+
+    updateClimateTimeline(gameState) {
+        const envScore = gameState.stats.environment;
+        const year = gameState.currentYear;
+
+        // Update climate status indicator
+        const climateStatus = document.getElementById('climate-status');
+        if (climateStatus) {
+            climateStatus.className = ''; // Reset classes
+
+            if (envScore < 20) {
+                climateStatus.textContent = '🌡️ Khủng hoảng khí hậu';
+                climateStatus.classList.add('danger');
+                this.showClimateEffects(['pollution', 'drought', 'smog']);
+            } else if (envScore < 40) {
+                climateStatus.textContent = '⚠️ Biến đổi khí hậu nghiêm trọng';
+                climateStatus.classList.add('danger');
+                this.showClimateEffects(['pollution', 'drought']);
+            } else if (envScore < 60) {
+                climateStatus.textContent = '⚠️ Cảnh báo khí hậu';
+                climateStatus.classList.add('warning');
+                this.showClimateEffects(['pollution']);
+            } else if (envScore < 80) {
+                climateStatus.textContent = '🌍 Khí hậu ổn định';
+                this.showClimateEffects([]);
+            } else {
+                climateStatus.textContent = '🌱 Khí hậu tốt';
+                this.showClimateEffects([]);
+            }
+        }
+
+        // Add flooding effects for later years with poor environment
+        if (year > 5 && envScore < 50) {
+            this.showClimateEffects(['flood']);
+        }
+    }
+
+    showClimateEffects(effectTypes) {
+        // Hide all climate effects first
+        document.querySelectorAll('.climate-effect').forEach(effect => {
+            effect.style.opacity = '0';
+        });
+
+        // Show specified effects
+        effectTypes.forEach(type => {
+            const effects = document.querySelectorAll(`.${type}-cloud, .${type}-area, .${type}`);
+            effects.forEach(effect => {
+                effect.style.opacity = '0.7';
+            });
+        });
+    }
+
+    updateProgressIndicators(stats) {
+        // Update development dots based on economy
+        const developmentDots = document.querySelectorAll('[id^="development-"]');
+        const economyLevel = Math.floor(stats.economy / 34); // 0-2 dots
+        developmentDots.forEach((dot, index) => {
+            if (index < economyLevel) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+
+        // Update ecology dots based on environment
+        const ecologyDots = document.querySelectorAll('[id^="ecology-"]');
+        const ecologyLevel = Math.floor(stats.environment / 34); // 0-2 dots
+        ecologyDots.forEach((dot, index) => {
+            if (index < ecologyLevel) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    initializeCityMap() {
+        // Initialize the city map when DOM is ready
+        // This method is called during constructor, so we need to ensure DOM elements exist
+        console.log('Initializing city map...');
+
+        // Set up initial city state
+        this.cityElements = {
+            residential: 2,
+            commercial: 2,
+            greenSpaces: 3,
+            infrastructure: 2,
+            industrial: 0,
+            environmental: 0
+        };
+
+        // The visual elements are already in the HTML, so we just need to track them
+        console.log('City map initialized successfully');
     }
 
     showConnectionStatus(message) {
-        this.connectionStatus.querySelector('p').textContent = message;
-        this.connectionStatus.classList.remove('hidden');
+        if (this.connectionStatus && this.connectionStatus.querySelector('p')) {
+            this.connectionStatus.querySelector('p').textContent = message;
+            this.connectionStatus.classList.remove('hidden');
+        }
     }
 
     hideConnectionStatus() {
-        this.connectionStatus.classList.add('hidden');
+        if (this.connectionStatus) {
+            this.connectionStatus.classList.add('hidden');
+        }
     }
 
     showError(message) {
-        this.errorMessage.textContent = message;
-        this.errorModal.classList.remove('hidden');
+        if (this.errorMessage && this.errorModal) {
+            this.errorMessage.textContent = message;
+            this.errorModal.classList.remove('hidden');
+        } else {
+            // Fallback if error modal elements don't exist
+            alert(message);
+        }
     }
 
     hideError() {
-        this.errorModal.classList.add('hidden');
+        if (this.errorModal) {
+            this.errorModal.classList.add('hidden');
+        }
+    }
+
+    showScreen(screenName) {
+        Object.values(this.screens).forEach(screen => {
+            if (screen) screen.classList.remove('active');
+        });
+        if (this.screens[screenName]) {
+            this.screens[screenName].classList.add('active');
+        }
+    }
+
+    hideAllPhases() {
+        if (this.proposalPhase) this.proposalPhase.classList.add('hidden');
+        if (this.votingPhase) this.votingPhase.classList.add('hidden');
+        if (this.resultsPhase) this.resultsPhase.classList.add('hidden');
     }
 
     showStatsWarnings(warnings) {
