@@ -1,0 +1,138 @@
+# Refinement Prompts for GreenCity Mayor Multiplayer
+## Team 4Knights | RMIT Hackathon 2025
+
+## Debugging and Error Resolution
+
+### Prompt 1: Socket.IO Connection Issues
+"My multiplayer game has intermittent Socket.IO connection drops during voting phases. Players get disconnected randomly. The error console shows 'transport close' and 'ping timeout'. Help me implement robust reconnection logic and handle these disconnections gracefully without breaking the game flow."
+
+### Prompt 2: Real-time State Synchronization
+"There's a bug where the game state gets out of sync between players. Sometimes votes don't register properly, and the mayor rotation doesn't update consistently across all clients. Debug this synchronization issue and ensure all players see the same game state at all times."
+
+### Prompt 3: Voting Timer Race Conditions
+"Players can sometimes submit votes after the 30-second timer expires due to network latency and race conditions. This causes vote counting errors and breaks the game flow. Fix the timing logic to prevent late votes while accounting for network delays."
+
+### Prompt 4: Room Management Memory Leaks
+"The server memory usage increases over time as players create and leave rooms. Empty rooms aren't being cleaned up properly, and player data persists after disconnection. Implement proper cleanup procedures to prevent memory leaks."
+
+### Prompt 5: Policy Card Rendering Issues
+"Policy cards sometimes don't display correctly on mobile devices. The effects text overlaps, and card selection doesn't work reliably on touch screens. Fix the responsive design and touch interaction issues for mobile gameplay."
+
+## Performance Optimization
+
+### Prompt 6: Server Response Time Optimization
+"The game server becomes slow when handling multiple concurrent rooms with 8-10 players each. Response times for socket events increase significantly. Analyze and optimize the server code for better performance under load."
+
+### Prompt 7: Client-Side Frame Rate Issues
+"The voting countdown animation and stat bar updates cause frame drops on lower-end devices. The UI becomes laggy during intensive visual updates. Optimize the animation code for smoother performance on all devices."
+
+### Prompt 8: Network Message Optimization
+"The game sends too many socket messages, causing network congestion especially with 10 players. Optimize the message frequency and payload sizes while maintaining real-time responsiveness and game synchronization."
+
+### Prompt 9: DOM Manipulation Efficiency
+"Frequent updates to the players list and game stats cause performance issues due to excessive DOM manipulation. Refactor the code to minimize reflows and repaints while maintaining real-time updates."
+
+## User Experience Improvements
+
+### Prompt 10: Mobile Interface Enhancement
+"The game interface doesn't work well on smartphones. Voting buttons are too small, policy cards are hard to read, and navigation is clunky. Redesign the mobile experience with proper touch targets and readable text sizes."
+
+### Prompt 11: Accessibility Implementation
+"Make the game accessible for users with disabilities. Add keyboard navigation support, screen reader compatibility, high contrast mode, and ensure WCAG 2.1 AA compliance for the multiplayer interface."
+
+### Prompt 12: Loading State Improvements
+"Players experience confusion during game phase transitions and waiting periods. Add better loading indicators, progress feedback, and clear status messages for each game phase (waiting for mayor, voting in progress, etc.)."
+
+### Prompt 13: Error Message Enhancement
+"Current error messages like 'Socket error: transport close' are too technical for players. Rewrite all error messages to be user-friendly and provide clear guidance on what players should do to resolve issues."
+
+### Prompt 14: Onboarding Flow Enhancement
+"New players find the multiplayer game confusing without proper guidance. Design an interactive tutorial that walks players through creating/joining rooms, understanding the mayor role, and the voting process."
+
+## Game Balance and Mechanics Refinement
+
+### Prompt 15: Policy Balance Analysis
+"After playtesting, some policies like 'Solar Panel Initiative' are chosen too frequently while others like 'Nuclear Power Plant' are never selected. Analyze the policy effects and rebalance them to create more strategic decision-making."
+
+### Prompt 16: Voting Time Calibration
+"The 30-second voting timer feels rushed for complex policies but too slow for simple ones. Implement dynamic timing based on policy complexity or allow room hosts to adjust voting duration (20-60 seconds)."
+
+### Prompt 17: Mayor Rotation Fairness
+"The random mayor selection sometimes gives the same player the mayor role multiple times in a row, creating unfair advantages. Implement a fair rotation system that ensures equal opportunities for all players."
+
+### Prompt 18: Win/Lose Condition Tuning
+"Current win conditions (all metrics ≥50 after 10 years) make games either too easy with experienced players or impossible with newcomers. Add difficulty levels and dynamic win conditions based on player count and experience."
+
+### Prompt 19: Climate Impact Feedback
+"Players don't understand how their policy decisions affect long-term climate outcomes. Add more visual feedback showing climate consequences, temperature projections, and real-world parallels to enhance educational value."
+
+## Code Quality and Architecture
+
+### Prompt 20: Code Structure Refactoring
+"The multiplayer client code has grown complex with nested callbacks and repeated socket event handling logic. Refactor using modern JavaScript patterns (async/await, modules) for better maintainability and readability."
+
+### Prompt 21: Error Handling Standardization
+"Error handling is inconsistent across socket events and user interactions. Some errors crash the client while others fail silently. Implement comprehensive error handling with logging and graceful degradation."
+
+### Prompt 22: Configuration Management System
+"Game settings like player limits, voting times, and policy effects are hardcoded throughout the application. Create a centralized configuration system that allows easy adjustment of game parameters without code changes."
+
+### Prompt 23: Code Documentation and Comments
+"The multiplayer game logic lacks proper documentation, making it difficult for team members to understand and contribute. Add comprehensive JSDoc comments, inline documentation, and developer guides."
+
+## Security and Validation
+
+### Prompt 24: Input Validation and Sanitization
+"Implement comprehensive input validation for all user inputs including player names, room codes, and vote selections. Prevent XSS attacks, SQL injection (if using database), and ensure data integrity."
+
+### Prompt 25: Anti-Cheating Measures
+"Players might attempt to manipulate votes or game state through browser developer tools or modified clients. Implement server-side validation for all game actions and anti-cheating measures."
+
+### Prompt 26: Rate Limiting Implementation
+"Add rate limiting to prevent spam voting, rapid room creation/joining, and other potential abuse of the multiplayer system. Implement both per-IP and per-session limits."
+
+### Prompt 27: Secure Room Code Generation
+"Current 6-character room codes might be predictable or allow room hijacking. Implement cryptographically secure room code generation and add room password protection options."
+
+## Testing and Quality Assurance
+
+### Prompt 28: Automated Testing Framework
+"Set up comprehensive testing for the multiplayer functionality including unit tests for game logic, integration tests for socket events, and end-to-end tests for complete game sessions."
+
+### Prompt 29: Load Testing Implementation
+"Create load testing scenarios to verify the server can handle the expected number of concurrent players (100+ players across 20+ rooms) without performance degradation or crashes."
+
+### Prompt 30: Cross-Browser Compatibility Testing
+"Test and fix compatibility issues across different browsers (Chrome, Firefox, Safari, Edge) and ensure consistent Socket.IO functionality and game behavior on all platforms."
+
+### Prompt 31: Network Condition Testing
+"Test the game under various network conditions including high latency, packet loss, and bandwidth limitations. Ensure graceful handling of poor network conditions."
+
+## Feature Enhancement and Polish
+
+### Prompt 32: Real-time Chat System
+"Add an optional chat system for players to discuss strategies during voting phases. Include chat moderation, emoji support, and the ability to mute/unmute chat per room."
+
+### Prompt 33: Game Statistics and Analytics
+"Implement player statistics tracking including games played, win rate, favorite policies, and voting patterns. Add a statistics dashboard and achievement system for engaged players."
+
+### Prompt 34: Spectator Mode Implementation
+"Allow non-playing users to spectate ongoing games as observers. Spectators can watch the game progress and see voting results without participating in the decision-making process."
+
+### Prompt 35: Climate Education Integration
+"Enhance the educational aspect by adding real climate data, policy outcome explanations, and links to relevant environmental resources. Show how game decisions relate to real-world climate action."
+
+### Prompt 36: Advanced Room Features
+"Add advanced room options including private rooms, custom game duration (5-20 years), difficulty settings, and the ability to save/resume games for longer multiplayer sessions."
+
+### Prompt 37: Audio and Visual Polish
+"Add appropriate sound effects for voting actions, policy announcements, and game phase transitions. Include ambient background music and visual polish like animations for stat changes."
+
+### Prompt 38: Multi-language Support
+"Implement internationalization (i18n) support for multiple languages including English, Vietnamese, and other regional languages to make the game accessible to a broader audience."
+
+### Prompt 39: Responsive Design Enhancement
+"Further optimize the responsive design for various screen sizes including tablets, ultrawide monitors, and small phones. Ensure optimal user experience across all device types."
+
+### Prompt 40: Performance Monitoring Integration
+"Integrate performance monitoring tools to track real-time game performance, identify bottlenecks, and monitor user engagement metrics for continuous improvement."

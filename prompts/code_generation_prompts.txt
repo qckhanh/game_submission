@@ -1,107 +1,176 @@
 # Code Generation Prompts for GreenCity Mayor Multiplayer
+## Team 4Knights | RMIT Hackathon 2025
 
-## Backend Development
+## Backend Architecture and Server Setup
 
-### Prompt 1: Server Architecture Setup
-"Create a Node.js server architecture for a multiplayer city management game using Express.js and Socket.IO. The server needs to handle room creation, player management, and real-time game state synchronization for 2-10 players per room."
+### Prompt 1: Express.js Server Foundation
+"Create a Node.js Express server for a multiplayer climate action game. Set up middleware for CORS, static file serving, and Socket.IO integration. Include environment configuration for development and production modes with proper port handling and graceful shutdown."
 
-### Prompt 2: Socket.IO Event Handlers
-"Implement Socket.IO event handlers for a multiplayer game including: createRoom, joinRoom, startGame, proposePolicy, vote, and disconnection handling. Include proper error handling and room state management."
+### Prompt 2: Socket.IO Real-time Communication Setup
+"Implement Socket.IO server configuration for handling real-time multiplayer communication. Set up connection handling, room management, and basic event structure for a city management game supporting 2-10 players per room."
 
-### Prompt 3: Game State Management
-"Create a game state management system for a turn-based multiplayer city management game. Track city metrics (Environment, Economy, Happiness), current mayor, voting phase, and player statuses. Include state validation and persistence."
+### Prompt 3: Game Room Management System
+"Create a comprehensive room management system that generates unique 6-character room codes, handles player joining/leaving, maintains player capacity limits, and automatically cleans up empty rooms. Include room state persistence and player reconnection handling."
 
-### Prompt 4: Room Management System
-"Implement a room management system that can create unique room codes, handle player joining/leaving, maintain room capacity limits (2-10 players), and clean up empty rooms automatically."
+### Prompt 4: Player Authentication and Session Management
+"Implement a simple player authentication system using socket sessions. Handle player names, unique IDs, room assignments, and maintain player state across disconnections and reconnections."
 
-### Prompt 5: Voting System Logic
-"Create a voting system that handles real-time vote collection, 30-second timeouts, vote counting (approve/reject/abstain), and automatic result calculation. Include tie-breaking logic and proper vote validation."
+### Prompt 5: Game State Architecture
+"Design and implement a centralized game state management system that tracks city metrics (Environment, Economy, Happiness), current game year, mayor rotation, voting phases, and policy effects for each game room."
 
-### Prompt 6: Policy Card System
-"Implement a policy card system with 50+ unique policies affecting city metrics. Include card shuffling, dealing 3 cards to mayors, and applying policy effects to city statistics."
+## Core Game Logic Implementation
 
-### Prompt 7: Mayor Rotation Logic
-"Create a mayor rotation system that randomly selects a new mayor each turn, ensures fair distribution among players, and handles cases when players disconnect during their mayor turn."
+### Prompt 6: Mayor Selection and Rotation System
+"Implement a fair mayor selection system that randomly chooses a new mayor each turn, ensures all players get equal opportunities, handles cases where the current mayor disconnects, and maintains game flow continuity."
 
-## Frontend Development
+### Prompt 7: Policy Card System and Database
+"Create a comprehensive policy card system with 50+ unique environmental policies. Each policy should have a title, description, and effects on the three city metrics. Implement card shuffling and dealing mechanics for mayor selection."
 
-### Prompt 8: Client-Side State Management
-"Implement client-side state management for a multiplayer game interface. Track local player state, room information, game phase, voting status, and synchronize with server updates via Socket.IO."
+### Prompt 8: Voting Mechanism with Timer
+"Implement a real-time voting system with a 30-second countdown timer. Handle vote collection (approve/reject/abstain), prevent duplicate voting, auto-submit abstain votes for inactive players, and calculate results with proper tie-breaking."
 
-### Prompt 9: Real-time UI Updates
-"Create JavaScript functions to handle real-time UI updates including player list changes, voting progress, countdown timers, metric changes, and phase transitions. Ensure smooth user experience."
+### Prompt 9: City Metrics Calculation Engine
+"Create a robust city metrics system that calculates Environment, Economy, and Happiness values (0-100 range). Implement bounds checking, policy effect application, and interconnected metric relationships that reflect real-world sustainability trade-offs."
 
-### Prompt 10: Responsive Game Interface
-"Build a responsive HTML/CSS interface for a multiplayer city management game that works on desktop and mobile. Include lobby screen, game board, voting interface, and results display."
+### Prompt 10: Win/Lose Condition Logic
+"Implement comprehensive win/lose detection that checks conditions after each year: team victory when all metrics ≥50 after 10 years, defeat when any metric reaches 0, and proper game termination with final statistics."
 
-### Prompt 11: Voting Interface Implementation
-"Implement an interactive voting interface with approve/reject/abstain buttons, visual feedback for selected votes, countdown timer display, and disabled state after voting."
+## Real-time Multiplayer Features
 
-### Prompt 12: Policy Card Display
-"Create dynamic policy card display functionality that shows card details, impact previews, and visual styling. Include animations for card selection and policy implementation effects."
+### Prompt 11: Socket Event Handlers
+"Create all necessary Socket.IO event handlers including: createRoom, joinRoom, leaveRoom, startGame, proposePolicy, submitVote, and gameStateUpdate. Include proper error handling and validation for each event."
 
-### Prompt 13: Connection Management
-"Implement robust connection management including Socket.IO reconnection logic, connection status indicators, error handling for network issues, and graceful degradation."
+### Prompt 12: Game State Broadcasting
+"Implement efficient game state broadcasting that sends updates to all players in a room when state changes occur. Optimize payload size and update frequency while maintaining real-time responsiveness."
 
-## Game Logic Implementation
+### Prompt 13: Player Status Tracking
+"Create a system to track and display real-time player status including: online/offline status, voting completion, mayor role indicator, and connection quality. Update all players when status changes."
 
-### Prompt 14: Metric Calculation System
-"Create a system for calculating city metric changes based on policy implementations. Include bounds checking (0-100), interconnected effects between metrics, and validation logic."
+### Prompt 14: Disconnection and Reconnection Handling
+"Implement robust disconnection handling that maintains game continuity when players leave, reassigns mayor role if needed, handles votes for disconnected players, and allows seamless reconnection to ongoing games."
 
-### Prompt 15: Win/Lose Condition Checker
-"Implement win/lose condition checking that monitors city metrics over 10 years, detects victory (all metrics ≥50) or defeat (any metric = 0), and triggers appropriate game end sequences."
+## Frontend Interface Development
 
-### Prompt 16: Turn Progression Logic
-"Create turn progression logic that manages phase transitions (mayor selection → policy proposal → voting → results → next turn), handles timeouts, and maintains proper game flow."
+### Prompt 15: Welcome Screen and Navigation
+"Create an attractive welcome screen for the climate action game featuring Team 4Knights branding, RMIT Hackathon 2025 information, climate change mission statement, and navigation to tutorial and game modes."
 
-### Prompt 17: Random Event System
-"Design and implement a random event system that occasionally introduces challenges or opportunities affecting city metrics, adding unpredictability to the game."
+### Prompt 16: Tutorial System Implementation
+"Develop an interactive tutorial system that explains game objectives, city metrics, gameplay phases (mayor selection, voting, results), win conditions, and climate education aspects through step-by-step guidance."
 
-## Multiplayer Synchronization
+### Prompt 17: Room Creation and Joining Interface
+"Build user-friendly interfaces for creating new game rooms and joining existing ones. Include room code generation/entry, player name input, room capacity display, and connection status feedback."
 
-### Prompt 18: State Synchronization
-"Implement reliable state synchronization between server and all connected clients. Ensure all players see consistent game state, handle late joiners, and manage state conflicts."
+### Prompt 18: Game Board and HUD Design
+"Design and implement the main game interface showing current year, city metrics with progress bars, player list with status indicators, and clear phase indicators (proposal, voting, results)."
 
-### Prompt 19: Real-time Communication
-"Create real-time communication system for broadcasting game updates, player actions, and phase changes to all room participants instantly using Socket.IO."
+### Prompt 19: Policy Card Display System
+"Create an attractive policy card interface that displays policy information clearly, shows metric effects with visual indicators (positive/negative), and handles card selection for mayors and display for voters."
 
-### Prompt 20: Disconnect Handling
-"Implement comprehensive disconnect handling including player removal from active games, mayor reassignment if current mayor disconnects, and vote recalculation for ongoing votes."
+### Prompt 20: Voting Interface with Real-time Updates
+"Implement the voting interface with approve/reject/abstain buttons, countdown timer with visual progress, vote count display, and real-time updates showing which players have voted."
 
-## Data Management
+## Advanced Features and Enhancements
 
-### Prompt 21: Game Configuration
-"Create a configurable game settings system including adjustable player limits, voting timeouts, metric starting values, and policy card pools. Make it easily modifiable for different game modes."
+### Prompt 21: Climate Impact Visualization
+"Create a climate impact system that calculates and displays projected temperature rise based on player decisions, shows real-world climate facts, and provides educational feedback on policy consequences."
 
-### Prompt 22: Session Persistence
-"Implement session persistence to maintain game state during server restarts, handle player reconnections to ongoing games, and provide save/resume functionality."
+### Prompt 22: Achievement and Scoring System
+"Implement a comprehensive achievement system tracking environmental goals, collaboration success, and sustainability metrics. Include score calculation and achievement unlocking based on game performance."
 
-### Prompt 23: Game Analytics
-"Create analytics tracking for game sessions including decision patterns, vote distributions, metric trends, and player engagement metrics for game improvement insights."
+### Prompt 23: Mobile-Responsive Design
+"Develop mobile-responsive CSS and JavaScript that adapts the game interface for smartphones and tablets. Ensure touch-friendly buttons, readable text, and optimal layout for various screen sizes."
 
-## Error Handling and Validation
+### Prompt 24: Animation and Visual Effects
+"Add engaging animations for stat changes, voting actions, policy implementations, and phase transitions. Include smooth transitions, progress animations, and visual feedback for user interactions."
 
-### Prompt 24: Input Validation
-"Implement comprehensive input validation for all client inputs including room codes, player names, vote selections, and policy choices. Include sanitization and security measures."
+## Data Management and Persistence
 
-### Prompt 25: Error Recovery Systems
-"Create error recovery systems for handling edge cases like simultaneous voting, network interruptions, invalid game states, and unexpected player behaviors."
+### Prompt 25: Game Session Storage
+"Implement session storage for maintaining game state during browser refreshes, storing player preferences, and caching room information for improved user experience."
+
+### Prompt 26: Statistics and Analytics Tracking
+"Create a system to track game statistics including games played, policies chosen, voting patterns, win rates, and player engagement metrics for analysis and improvement."
+
+### Prompt 27: Configuration Management
+"Develop a centralized configuration system for game parameters including player limits, voting timeouts, policy effects, and difficulty settings that can be easily modified without code changes."
+
+### Prompt 28: Backup and Recovery Systems
+"Implement game state backup and recovery mechanisms to handle server crashes, maintain game continuity, and restore active sessions after unexpected shutdowns."
+
+## Security and Validation
+
+### Prompt 29: Input Sanitization and Validation
+"Create comprehensive input validation for all user inputs including player names, room codes, and vote selections. Implement sanitization to prevent XSS attacks and ensure data integrity."
+
+### Prompt 30: Anti-Cheating and Rate Limiting
+"Implement server-side validation for all game actions, prevent vote manipulation, add rate limiting for actions like room creation and voting, and detect suspicious player behavior."
+
+### Prompt 31: Secure Room Code Generation
+"Create a cryptographically secure room code generation system that produces unpredictable 6-character codes, prevents room hijacking, and optionally supports password protection."
 
 ## Performance Optimization
 
-### Prompt 26: Server Performance
-"Optimize server performance for handling multiple concurrent game rooms, efficient memory usage, and scalable architecture that can support growth in player base."
+### Prompt 32: Server Performance Optimization
+"Optimize server performance for handling multiple concurrent game rooms. Implement efficient memory usage, connection pooling, and scalable architecture supporting 100+ concurrent players."
 
-### Prompt 27: Client-Side Optimization
-"Implement client-side performance optimizations including efficient DOM updates, event debouncing, memory management, and smooth animations without blocking the UI thread."
+### Prompt 33: Client-Side Performance Tuning
+"Optimize client-side performance including DOM manipulation efficiency, event handling, animation performance, and memory usage for smooth gameplay on various devices."
 
-### Prompt 28: Network Optimization
-"Optimize network communication by minimizing payload sizes, implementing efficient update protocols, and reducing unnecessary Socket.IO message frequency."
+### Prompt 34: Network Communication Optimization
+"Implement efficient network communication protocols, minimize Socket.IO message frequency and size, use message compression, and optimize for various network conditions."
 
-## Testing and Debugging
+## Testing and Quality Assurance
 
-### Prompt 29: Unit Testing Framework
-"Create unit tests for game logic functions including metric calculations, voting systems, mayor rotation, and policy effects. Use appropriate testing framework and include edge cases."
+### Prompt 35: Unit Testing Framework
+"Set up comprehensive unit testing for game logic functions including metric calculations, voting systems, mayor rotation, policy effects, and win/lose detection using Jest or similar framework."
 
-### Prompt 30: Integration Testing
-"Implement integration tests for multiplayer functionality including room creation, player joining, full game sessions, and various disconnect scenarios."
+### Prompt 36: Integration Testing Suite
+"Create integration tests for multiplayer functionality including room creation, player joining, complete game sessions, disconnection scenarios, and Socket.IO event handling."
+
+### Prompt 37: Load Testing Implementation
+"Develop load testing scenarios using tools like Artillery or Socket.IO load tester to verify server performance under various loads (multiple rooms, concurrent players, heavy voting activity)."
+
+### Prompt 38: Cross-Browser Compatibility Testing
+"Implement automated testing across different browsers and devices to ensure consistent Socket.IO functionality, CSS rendering, and JavaScript behavior on Chrome, Firefox, Safari, and Edge."
+
+## Deployment and DevOps
+
+### Prompt 39: Production Deployment Setup
+"Create production deployment configuration including environment variables, process management (PM2), reverse proxy setup (Nginx), SSL certificate handling, and server monitoring."
+
+### Prompt 40: CI/CD Pipeline Implementation
+"Set up continuous integration and deployment pipeline using GitHub Actions or similar tools. Include automated testing, code quality checks, deployment to staging/production, and rollback procedures."
+
+## Climate Education Integration
+
+### Prompt 41: Real-World Climate Data Integration
+"Integrate real climate data APIs to show current global statistics, connect game policies to actual environmental initiatives, and provide educational resources about climate change and sustainability."
+
+### Prompt 42: Educational Content Management
+"Create a system for managing educational climate content including policy explanations, real-world case studies, climate facts, and links to environmental organizations and resources."
+
+### Prompt 43: Sustainability Scoring Algorithm
+"Develop a sophisticated sustainability scoring algorithm that evaluates player decisions against real-world climate targets, calculates environmental impact scores, and provides meaningful feedback."
+
+## Advanced Multiplayer Features
+
+### Prompt 44: Spectator Mode Implementation
+"Add spectator functionality allowing non-playing users to observe ongoing games, see voting progress, and learn from experienced players without affecting the game outcome."
+
+### Prompt 45: Chat and Communication System
+"Implement an optional in-game chat system for player communication during decision-making phases, including message moderation, emoji support, and chat history management."
+
+### Prompt 46: Advanced Room Features
+"Add sophisticated room management including private rooms, custom game settings, save/resume functionality, and advanced host controls for managing game sessions."
+
+### Prompt 47: Tournament and League System
+"Create a tournament system for organizing competitive climate action games, including bracket management, leaderboards, and seasonal competitions for educational institutions."
+
+### Prompt 48: Multi-language Support
+"Implement internationalization (i18n) support for multiple languages including English, Vietnamese, and other regional languages with proper translation management and cultural adaptation."
+
+### Prompt 49: Progressive Web App Features
+"Convert the game into a Progressive Web App (PWA) with offline capabilities, push notifications for game invitations, and native app-like experience on mobile devices."
+
+### Prompt 50: Analytics and Reporting Dashboard
+"Build an analytics dashboard for tracking game usage, player engagement, educational impact, and game balance metrics to support continuous improvement and research."
