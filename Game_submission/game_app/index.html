@@ -61,7 +61,7 @@
                 <div class="resource-guide">
                     <div class="guide-item">
                         <span class="guide-icon">🌱</span>
-                        <strong>Carbon:</strong> Keep below 100 to win!
+                        <strong>Environment Score:</strong> Higher is better; keep emissions low (carbon < 100).
                     </div>
                     <div class="guide-item">
                         <span class="guide-icon">💰</span>
@@ -98,7 +98,7 @@
                         <div class="resource-bar">
                             <div class="resource-fill carbon-fill" id="carbonBar"></div>
                         </div>
-                        <span class="resource-value" id="carbonValue">50</span>
+                        <span class="resource-value" id="environmentValue">50</span>
                     </div>
                 </div>
 
@@ -165,6 +165,11 @@
             </div>
 
             <div class="results-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">🌿</span>
+                    <span class="stat-label" id="finalLabelEnvironment">Environment Score</span>
+                    <span class="stat-value" id="finalEnvironment">0</span>
+                </div>
                 <div class="stat-item">
                     <span class="stat-icon">🌱</span>
                     <span class="stat-label" id="finalLabelCarbon">Final Carbon</span>

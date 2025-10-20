@@ -381,24 +381,27 @@ function startGame() {
 }
 
 function updateUI() {
+    // Compute environment score (higher is better) from carbon emissions
+    const environmentScore = Math.max(0, 150 - gameState.carbon);
+
     // Update year
     document.getElementById('yearDisplay').textContent = `${gameState.year}/${gameState.maxYears}`;
 
-    // Update resources
-    document.getElementById('carbonValue').textContent = Math.round(gameState.carbon);
+    // Update resources (Environment shown instead of raw carbon)
+    document.getElementById('environmentValue').textContent = Math.round(environmentScore);
     document.getElementById('budgetValue').textContent = `${Math.round(gameState.budget)}M`;
     document.getElementById('happinessValue').textContent = `${Math.round(gameState.happiness)}%`;
 
     // Update resource bars
-    updateResourceBar('carbonBar', gameState.carbon, 150);
+    updateResourceBar('carbonBar', environmentScore, 150);
     updateResourceBar('budgetBar', gameState.budget, 150);
     updateResourceBar('happinessBar', gameState.happiness, 100);
 
-    // Change carbon bar color based on value
+    // Environment bar color: low score red, mid orange, high green
     const carbonBar = document.getElementById('carbonBar');
-    if (gameState.carbon > 100) {
+    if (environmentScore < 50) {
         carbonBar.style.background = 'linear-gradient(90deg, #f56565, #c53030)';
-    } else if (gameState.carbon > 70) {
+    } else if (environmentScore < 80) {
         carbonBar.style.background = 'linear-gradient(90deg, #ed8936, #dd6b20)';
     } else {
         carbonBar.style.background = 'linear-gradient(90deg, #48bb78, #38a169)';
@@ -463,18 +466,31 @@ function presentDecision() {
 
 function formatEffect(icon, value) {
     if (value === 0) return '';
-    const sign = value > 0 ? '+' : '';
 
-    // For carbon (🌱), negative is good (reduces emissions)
-    // For budget (💰) and happiness (😊), positive is good
+    let displayValue; // string with sign + magnitude
     let className;
+    let tooltip; // title attribute content
+
     if (icon === '🌱') {
-        className = value < 0 ? 'positive' : 'negative';
+        // Underlying value is carbon delta; negative means environment improves
+        if (value < 0) {
+            const abs = Math.abs(value);
+            displayValue = `+${abs}`; // environment points gained
+            className = 'positive';
+            tooltip = `Environment improved by ${abs}`;
+        } else {
+            displayValue = `-${value}`; // environment points lost
+            className = 'negative';
+            tooltip = `Environment harmed by ${value}`;
+        }
     } else {
+        displayValue = (value > 0 ? '+' : '') + value; // native sign formatting
         className = value > 0 ? 'positive' : 'negative';
+        const metric = icon === '💰' ? 'Budget' : 'Happiness';
+        tooltip = `${metric} ${value > 0 ? 'increased' : 'decreased'} by ${Math.abs(value)}`;
     }
 
-    return `<span class="effect ${className}">${icon} ${sign}${value}</span>`;
+    return `<span class="effect ${className}" title="${tooltip}">${icon} ${displayValue}</span>`;
 }
 
 
@@ -583,8 +599,9 @@ function nextTurn() {
 function endGame(reason) {
     playSound('gameover');
 
-    // Calculate score
-    const carbonScore = Math.max(0, 150 - gameState.carbon);
+    // Calculate scores
+    const environmentScore = Math.max(0, 150 - gameState.carbon); // higher is better
+    const carbonScore = environmentScore; // retain for total score calculation compatibility
     const budgetScore = gameState.budget;
     const happinessScore = gameState.happiness;
     const totalScore = Math.round(carbonScore + budgetScore + happinessScore);
@@ -621,6 +638,7 @@ function endGame(reason) {
     // Display results
     document.getElementById('resultsTitle').textContent = title;
     document.getElementById('finalScore').textContent = `Score: ${totalScore}`;
+    document.getElementById('finalEnvironment').textContent = Math.round(environmentScore);
     document.getElementById('finalCarbon').textContent = Math.round(gameState.carbon);
     document.getElementById('finalBudget').textContent = `${Math.round(gameState.budget)}M`;
     document.getElementById('finalHappiness').textContent = `${Math.round(gameState.happiness)}%`;
@@ -632,9 +650,10 @@ function endGame(reason) {
 
     const impacts = [
         `You made ${gameState.decisions.length} major decisions over ${gameState.year - 1} years.`,
-        `Final carbon footprint: ${Math.round(gameState.carbon)} (Target: <100)`,
+        `Environment score: ${Math.round(environmentScore)} (Higher is better; max 150)`,
+        `Final carbon emissions: ${Math.round(gameState.carbon)} (Target: <100)`,
         `Your city's rating: ${rating}`,
-        gameState.carbon < 50 ? '✅ Achieved low carbon emissions!' : '❌ Carbon emissions too high',
+        environmentScore > 100 ? '✅ Strong environmental performance!' : '❌ Environment performance needs improvement',
         gameState.happiness > 60 ? '✅ Citizens are satisfied!' : '❌ Citizens need better quality of life',
         gameState.budget > 50 ? '✅ Financially sustainable!' : '⚠️ Budget concerns remain'
     ];
