@@ -1,0 +1,54 @@
+# Concept Development Prompts for GreenCity Mayor Multiplayer
+
+## Initial Game Concept Brainstorming
+
+### Prompt 1: Core Game Idea
+"I want to create a multiplayer web-based game that teaches players about sustainability and environmental challenges. The game should be educational but fun, involving decision-making and collaboration. What are some engaging game concepts that could work for 2-10 players and focus on environmental themes?"
+
+### Prompt 2: Multiplayer Mechanics
+"For a sustainability-focused city management game, what multiplayer mechanics would encourage collaboration rather than competition? The game should promote democratic decision-making and teach players about the trade-offs in environmental policy."
+
+### Prompt 3: Theme Refinement
+"I'm developing a city management game focused on sustainability. Help me brainstorm specific themes and challenges that would be both educational and engaging for players. The game should address real-world environmental issues while remaining accessible and fun."
+
+### Prompt 4: Target Audience Analysis
+"What age group and audience would be most interested in a collaborative sustainability city management game? How should the complexity and presentation be adjusted for different audiences (students, general public, environmental enthusiasts)?"
+
+### Prompt 5: Gameplay Loop Design
+"Design a engaging gameplay loop for a multiplayer sustainability city management game. Players should take turns making decisions, but everyone should stay engaged throughout. What phases and mechanics would work best?"
+
+## Game Mechanics Brainstorming
+
+### Prompt 6: Democratic Voting System
+"How can I implement a fair and engaging voting system in a multiplayer city management game? Players need to vote on policies proposed by a rotating 'mayor' role. What voting mechanisms would be most engaging and educational?"
+
+### Prompt 7: Resource Management
+"For a sustainability-focused city game, what key metrics should players manage? How can these metrics be interconnected to show the complexity of real environmental policy decisions?"
+
+### Prompt 8: Policy Card System
+"Design a policy card system for a sustainability city management game. Each policy should have clear environmental, economic, and social impacts. What types of policies would create interesting decision points?"
+
+### Prompt 9: Win/Lose Conditions
+"What win and lose conditions would work best for a collaborative sustainability game? The conditions should encourage teamwork while maintaining tension and challenge."
+
+### Prompt 10: Social Dynamics
+"How can a multiplayer city management game encourage meaningful discussion and collaboration between players? What game mechanics promote communication and shared decision-making?"
+
+## Technical Implementation Ideas
+
+### Prompt 11: Multiplayer Architecture
+"What's the best technical approach for implementing a real-time multiplayer web game with 2-10 players? The game needs voting mechanics, turn-based phases, and live updates for all players."
+
+### Prompt 12: User Interface Design
+"Design user interface concepts for a multiplayer city management game that works on both desktop and mobile. The interface needs to show city stats, player status, voting options, and policy information clearly."
+
+### Prompt 13: Accessibility Considerations
+"How can I make a web-based multiplayer city management game accessible to players with different abilities? What design principles should I follow for inclusive gameplay?"
+
+## Educational Integration
+
+### Prompt 14: Learning Objectives
+"What specific learning objectives should a sustainability city management game achieve? How can game mechanics reinforce real-world understanding of environmental policy trade-offs?"
+
+### Prompt 15: Real-world Connections
+"How can I connect game policies and outcomes to real-world environmental challenges and solutions? What examples and case studies would enhance the educational value?"

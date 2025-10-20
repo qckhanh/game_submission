@@ -1,0 +1,107 @@
+# Code Generation Prompts for GreenCity Mayor Multiplayer
+
+## Backend Development
+
+### Prompt 1: Server Architecture Setup
+"Create a Node.js server architecture for a multiplayer city management game using Express.js and Socket.IO. The server needs to handle room creation, player management, and real-time game state synchronization for 2-10 players per room."
+
+### Prompt 2: Socket.IO Event Handlers
+"Implement Socket.IO event handlers for a multiplayer game including: createRoom, joinRoom, startGame, proposePolicy, vote, and disconnection handling. Include proper error handling and room state management."
+
+### Prompt 3: Game State Management
+"Create a game state management system for a turn-based multiplayer city management game. Track city metrics (Environment, Economy, Happiness), current mayor, voting phase, and player statuses. Include state validation and persistence."
+
+### Prompt 4: Room Management System
+"Implement a room management system that can create unique room codes, handle player joining/leaving, maintain room capacity limits (2-10 players), and clean up empty rooms automatically."
+
+### Prompt 5: Voting System Logic
+"Create a voting system that handles real-time vote collection, 30-second timeouts, vote counting (approve/reject/abstain), and automatic result calculation. Include tie-breaking logic and proper vote validation."
+
+### Prompt 6: Policy Card System
+"Implement a policy card system with 50+ unique policies affecting city metrics. Include card shuffling, dealing 3 cards to mayors, and applying policy effects to city statistics."
+
+### Prompt 7: Mayor Rotation Logic
+"Create a mayor rotation system that randomly selects a new mayor each turn, ensures fair distribution among players, and handles cases when players disconnect during their mayor turn."
+
+## Frontend Development
+
+### Prompt 8: Client-Side State Management
+"Implement client-side state management for a multiplayer game interface. Track local player state, room information, game phase, voting status, and synchronize with server updates via Socket.IO."
+
+### Prompt 9: Real-time UI Updates
+"Create JavaScript functions to handle real-time UI updates including player list changes, voting progress, countdown timers, metric changes, and phase transitions. Ensure smooth user experience."
+
+### Prompt 10: Responsive Game Interface
+"Build a responsive HTML/CSS interface for a multiplayer city management game that works on desktop and mobile. Include lobby screen, game board, voting interface, and results display."
+
+### Prompt 11: Voting Interface Implementation
+"Implement an interactive voting interface with approve/reject/abstain buttons, visual feedback for selected votes, countdown timer display, and disabled state after voting."
+
+### Prompt 12: Policy Card Display
+"Create dynamic policy card display functionality that shows card details, impact previews, and visual styling. Include animations for card selection and policy implementation effects."
+
+### Prompt 13: Connection Management
+"Implement robust connection management including Socket.IO reconnection logic, connection status indicators, error handling for network issues, and graceful degradation."
+
+## Game Logic Implementation
+
+### Prompt 14: Metric Calculation System
+"Create a system for calculating city metric changes based on policy implementations. Include bounds checking (0-100), interconnected effects between metrics, and validation logic."
+
+### Prompt 15: Win/Lose Condition Checker
+"Implement win/lose condition checking that monitors city metrics over 10 years, detects victory (all metrics ≥50) or defeat (any metric = 0), and triggers appropriate game end sequences."
+
+### Prompt 16: Turn Progression Logic
+"Create turn progression logic that manages phase transitions (mayor selection → policy proposal → voting → results → next turn), handles timeouts, and maintains proper game flow."
+
+### Prompt 17: Random Event System
+"Design and implement a random event system that occasionally introduces challenges or opportunities affecting city metrics, adding unpredictability to the game."
+
+## Multiplayer Synchronization
+
+### Prompt 18: State Synchronization
+"Implement reliable state synchronization between server and all connected clients. Ensure all players see consistent game state, handle late joiners, and manage state conflicts."
+
+### Prompt 19: Real-time Communication
+"Create real-time communication system for broadcasting game updates, player actions, and phase changes to all room participants instantly using Socket.IO."
+
+### Prompt 20: Disconnect Handling
+"Implement comprehensive disconnect handling including player removal from active games, mayor reassignment if current mayor disconnects, and vote recalculation for ongoing votes."
+
+## Data Management
+
+### Prompt 21: Game Configuration
+"Create a configurable game settings system including adjustable player limits, voting timeouts, metric starting values, and policy card pools. Make it easily modifiable for different game modes."
+
+### Prompt 22: Session Persistence
+"Implement session persistence to maintain game state during server restarts, handle player reconnections to ongoing games, and provide save/resume functionality."
+
+### Prompt 23: Game Analytics
+"Create analytics tracking for game sessions including decision patterns, vote distributions, metric trends, and player engagement metrics for game improvement insights."
+
+## Error Handling and Validation
+
+### Prompt 24: Input Validation
+"Implement comprehensive input validation for all client inputs including room codes, player names, vote selections, and policy choices. Include sanitization and security measures."
+
+### Prompt 25: Error Recovery Systems
+"Create error recovery systems for handling edge cases like simultaneous voting, network interruptions, invalid game states, and unexpected player behaviors."
+
+## Performance Optimization
+
+### Prompt 26: Server Performance
+"Optimize server performance for handling multiple concurrent game rooms, efficient memory usage, and scalable architecture that can support growth in player base."
+
+### Prompt 27: Client-Side Optimization
+"Implement client-side performance optimizations including efficient DOM updates, event debouncing, memory management, and smooth animations without blocking the UI thread."
+
+### Prompt 28: Network Optimization
+"Optimize network communication by minimizing payload sizes, implementing efficient update protocols, and reducing unnecessary Socket.IO message frequency."
+
+## Testing and Debugging
+
+### Prompt 29: Unit Testing Framework
+"Create unit tests for game logic functions including metric calculations, voting systems, mayor rotation, and policy effects. Use appropriate testing framework and include edge cases."
+
+### Prompt 30: Integration Testing
+"Implement integration tests for multiplayer functionality including room creation, player joining, full game sessions, and various disconnect scenarios."

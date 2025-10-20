@@ -1,0 +1,71 @@
+# Asset Generation Prompts for GreenCity Mayor Multiplayer
+
+## Visual Design and UI Assets
+
+### Prompt 1: Color Scheme and Branding
+"Create a color scheme for a sustainability-focused city management game called 'GreenCity Mayor'. The colors should evoke environmental themes while remaining professional and accessible. Include primary, secondary, and accent colors with hex codes."
+
+### Prompt 2: Logo and Icon Design
+"Design a logo concept for 'GreenCity Mayor' - a multiplayer sustainability city management game. The logo should incorporate elements of urban planning, environmental themes, and collaboration. Describe the visual elements and symbolism."
+
+### Prompt 3: UI Component Styling
+"Design CSS styling for game UI components including buttons, cards, progress bars, and voting interfaces. The style should be modern, clean, and work well on both desktop and mobile devices. Use a green/eco-friendly color palette."
+
+### Prompt 4: Policy Card Visual Design
+"Create visual designs for policy cards in a city management game. Each card should display policy name, description, and impact icons for Environment (+2), Economy (-1), Happiness (+1). Design should be clear and scannable."
+
+### Prompt 5: City Metrics Dashboard
+"Design a dashboard layout for displaying three city metrics: Environment, Economy, and Happiness. Each should have progress bars, current values, and trend indicators. Make it visually appealing and easy to read at a glance."
+
+## Game Interface Assets
+
+### Prompt 6: Room Lobby Interface
+"Design a lobby interface for a multiplayer game where players can create or join rooms. Include sections for player list, room code display, game rules, and start button. Should accommodate 2-10 players."
+
+### Prompt 7: Voting Interface Design
+"Create a voting interface where players can vote Approve, Reject, or Abstain on proposed policies. Include a 30-second countdown timer and clear visual feedback for selected options."
+
+### Prompt 8: Mayor Selection Visual
+"Design visual elements to highlight which player is currently the Mayor in a multiplayer game. This could include crown icons, special borders, or highlighting effects that are clear but not overwhelming."
+
+### Prompt 9: Game Results Screen
+"Design an end-game results screen showing final city metrics, whether players won or lost, and a summary of key decisions made during the game. Should feel celebratory for wins and informative for losses."
+
+### Prompt 10: Mobile Responsive Layout
+"Adapt the game interface designs for mobile devices. Ensure all interactive elements are touch-friendly and information remains readable on smaller screens. Consider how to handle the multi-panel layout."
+
+## Icon and Graphic Elements
+
+### Prompt 11: Sustainability Icons
+"Create a set of icons representing different sustainability concepts: renewable energy, waste management, public transportation, green spaces, recycling, air quality, water conservation, sustainable agriculture."
+
+### Prompt 12: Policy Category Icons
+"Design icons for different policy categories in a city management game: Environmental Protection, Economic Development, Social Welfare, Infrastructure, Transportation, Housing, Education, Healthcare."
+
+### Prompt 13: Player Status Indicators
+"Create visual indicators for player status in a multiplayer game: online/offline, has voted/hasn't voted, is mayor/regular player, ready/not ready. Should be simple and instantly recognizable."
+
+### Prompt 14: Progress and Achievement Graphics
+"Design progress indicators and achievement graphics for reaching sustainability milestones. Include visual representations of city growth and environmental improvements."
+
+## Animation and Interactive Elements
+
+### Prompt 15: Voting Animation Concepts
+"Describe animation concepts for the voting process: how votes appear as they're cast, countdown timer animations, and the reveal of voting results. Animations should enhance engagement without being distracting."
+
+### Prompt 16: City Metric Change Animations
+"Design animations for when city metrics change due to policy implementations. Show positive and negative changes clearly, with smooth transitions that help players understand cause and effect."
+
+### Prompt 17: Turn Transition Effects
+"Create transition effects for when the mayor role rotates to a new player. The transition should be clear and celebratory while maintaining game flow."
+
+## Accessibility and Inclusivity Assets
+
+### Prompt 18: Colorblind-Friendly Design
+"Adapt the visual design to be accessible for colorblind users. Suggest alternative visual indicators beyond color for different game states, metrics, and player statuses."
+
+### Prompt 19: High Contrast Mode Assets
+"Create high contrast versions of key visual elements for users with visual impairments. Ensure text remains readable and interactive elements are clearly distinguishable."
+
+### Prompt 20: Cultural Inclusivity Graphics
+"Design visual elements that represent diverse communities and cultures in the city management context. Ensure graphics are inclusive and represent various demographics appropriately."
