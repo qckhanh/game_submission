@@ -1,0 +1,81 @@
+CONCEPT PROMPTS - EcoCity Challenge Game
+========================================
+
+Prompt 1: Initial Game Concept
+-------------------------------
+"I need to create a web-based game about climate change and sustainability for a hackathon.
+The game should be educational, engaging, and highlight real-world challenges. It needs to be
+a simple format like a board game or card game that works in a browser. The target audience
+is students and young adults in Vietnam or Australia. Can you suggest game concepts that would
+be both fun to play and impactful in raising awareness about climate issues?"
+
+Response: Generated multiple concepts including city management, carbon footprint tracker,
+and resource allocation games. Selected city management as most engaging.
+
+Prompt 2: Game Mechanics Design
+--------------------------------
+"Let's develop a city management game where players make decisions about energy, transport,
+waste, and industry over 10 years. The player needs to balance three resources: carbon emissions,
+budget, and citizen happiness. Can you help design the core gameplay loop and decision structure?
+What kinds of choices should players face, and how should they affect the three resources?"
+
+Response: Designed turn-based system with 4 categories, multiple choices per decision, and
+trade-offs between resources. Suggested random events for unpredictability.
+
+Prompt 3: Educational Content Integration
+------------------------------------------
+"The game needs to be educational. What real climate change facts should I include? And how
+can I make the decision choices reflect real-world policy dilemmas that cities face when trying
+to become more sustainable? I want players to understand the complexity of climate action."
+
+Response: Provided climate facts from IPCC reports, suggested realistic policy scenarios like
+coal vs. renewable energy, public transport expansion, waste management systems, and industrial
+regulations with accurate trade-offs.
+
+Prompt 4: Win/Lose Conditions
+------------------------------
+"What should be the winning and losing conditions? I want multiple possible endings based on
+player performance. How should I calculate the final score to reflect both environmental and
+social success?"
+
+Response: Designed multi-criteria evaluation system with carbon threshold, budget survival,
+happiness minimum, and composite scoring. Created 5 different ending scenarios from "Climate
+Hero" to "Bankruptcy" based on final state.
+
+Prompt 5: Game Balance
+----------------------
+"How do I balance the game so it's challenging but not impossible? Players should feel the
+tension between short-term costs and long-term benefits. What should be the starting values
+and typical effect ranges for decisions?"
+
+Response: Suggested starting values (Carbon: 50, Budget: 100, Happiness: 75) and effect ranges
+(-25 to +15 for various decisions) to create meaningful choices without making the game too
+easy or frustratingly difficult.
+
+Prompt 6: Random Events System
+-------------------------------
+"I want to add random events that can happen during gameplay to make it more dynamic and
+realistic. What kinds of climate-related or policy-related events should occur, and how
+often should they happen?"
+
+Response: Designed 6 different random events (extreme weather, tech breakthroughs, protests,
+funding, factory closures, weather boosts) with probability system (8-15% per event) and
+varied impacts on all three resources.
+
+Prompt 7: User Experience Flow
+-------------------------------
+"What screens should the game have, and how should players navigate between them? I need a
+menu screen, gameplay screen, and results screen at minimum. What should each screen contain?"
+
+Response: Designed 4-screen structure: Menu (with climate facts and options), Instructions
+(tutorial), Game (with resources, city view, and decision cards), and Results (with score,
+statistics, and impact summary).
+
+Prompt 8: Visual Theme Direction
+---------------------------------
+"I want a minimalist but colorful design. What color schemes and visual elements would work
+well for a climate game? It should feel modern and optimistic, not doom-and-gloom."
+
+Response: Suggested gradient backgrounds (purple/blue), green for positive environmental
+actions, clean white cards, emoji icons for quick recognition, and smooth animations for
+professional feel. Recommended avoiding dark/apocalyptic themes in favor of hopeful aesthetics.

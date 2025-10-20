@@ -1,0 +1,199 @@
+CODE GENERATION PROMPTS - EcoCity Challenge Game
+=================================================
+
+Prompt 1: HTML Structure
+------------------------
+"Create the complete HTML structure for the game with 4 screens: menu, instructions, game,
+and results. Use semantic HTML5 and include all necessary containers for dynamic content.
+The structure should support easy JavaScript manipulation."
+
+Response: Generated index.html with:
+- Proper DOCTYPE and meta tags
+- Screen-based layout with class toggling
+- Semantic sections and containers
+- ID attributes for JavaScript access
+- Linked CSS and JS files
+- Accessibility considerations
+
+Prompt 2: CSS Layout System
+---------------------------
+"Write the complete CSS for the game using modern CSS features. Include flexbox/grid layouts,
+animations, responsive design, and the color scheme we discussed. Make it production-ready."
+
+Response: Generated style.css with:
+- CSS reset and base styles
+- Screen management system
+- Component-based styling
+- Animation keyframes
+- Responsive media queries
+- Hover and transition effects
+- Color-coded resource indicators
+
+Prompt 3: Game State Management
+--------------------------------
+"Create a JavaScript object to manage the game state. It should track year, resources,
+decisions made, and settings. Include functions to initialize, update, and reset the state."
+
+Response: Implemented gameState object with:
+- All resource values
+- Year counter and max years
+- Decision history array
+- Sound settings
+- Current category tracker
+- Helper functions for state management
+
+Prompt 4: Decision Database
+---------------------------
+"Create a comprehensive database of decisions for all 4 categories (Energy, Transport, Waste,
+Industry). Each decision should have a title, description, and 4 choices with realistic effects
+on carbon, budget, and happiness."
+
+Response: Generated decisions object with:
+- 2 decisions per category (8 total)
+- 4 choices per decision (32 total choices)
+- Balanced effect values
+- Descriptive text for each option
+- Realistic trade-offs based on real policies
+
+Prompt 5: Random Event System
+------------------------------
+"Implement a random event system that has a 30% chance of triggering after each decision.
+Events should have varying probabilities and effects. Include functions to check, trigger,
+and display events."
+
+Response: Created randomEvents array and functions:
+- 6 different event types
+- Individual probability values
+- triggerRandomEvent() function
+- showEvent() and hideEvent() UI functions
+- Delayed effect application
+- Sound effect integration
+
+Prompt 6: UI Update Functions
+------------------------------
+"Write functions to update all UI elements: resource bars, year counter, decision cards,
+and city visualization. Updates should be smooth and provide visual feedback."
+
+Response: Implemented update functions:
+- updateUI() master function
+- updateResourceBar() with percentage calculation
+- Dynamic color changes based on values
+- presentDecision() for card generation
+- formatEffect() for effect display
+- generateCity() for building creation
+
+Prompt 7: Sound System
+----------------------
+"Create a simple sound system using Web Audio API that doesn't require audio files. Generate
+different tones for: button clicks, success, warnings, and game over. Include a toggle function."
+
+Response: Implemented audio system with:
+- AudioContext initialization
+- playSound() function with type parameter
+- Oscillator-based tone generation
+- Different frequencies for different events
+- Volume and duration control
+- toggleSound() function
+- Sound enabled state tracking
+
+Prompt 8: Game Flow Logic
+-------------------------
+"Implement the core game loop: start game, present decision, apply effects, check for events,
+advance turn, check win/lose conditions, and end game. Include all transition logic."
+
+Response: Created game flow functions:
+- startGame() initialization
+- makeDecision() choice handler
+- nextTurn() advancement
+- endGame() with reason parameter
+- Win/lose condition checking
+- Score calculation
+- Screen transitions
+
+Prompt 9: Results Screen Logic
+-------------------------------
+"Create the end game logic that calculates score, determines outcome message, generates impact
+summary, and displays everything on the results screen. Include multiple ending scenarios."
+
+Response: Implemented endGame() with:
+- Score calculation from all resources
+- 5 different ending scenarios
+- Dynamic title and message generation
+- Impact summary generation
+- Statistics display
+- Rating system (Excellent/Good/Average/Failed)
+
+Prompt 10: Screen Navigation
+----------------------------
+"Write functions to handle navigation between screens with smooth transitions. Include:
+showScreen(), showInstructions(), backToMenu(), pauseGame()."
+
+Response: Created navigation system:
+- showScreen() with class toggling
+- Screen fade-in animations
+- Sound effects on navigation
+- Pause confirmation dialog
+- Back button handlers
+- Active screen management
+
+Prompt 11: Dynamic Content Generation
+--------------------------------------
+"Implement functions to dynamically generate: decision choice buttons, city buildings,
+climate facts rotation, and impact summary items."
+
+Response: Created generation functions:
+- presentDecision() for choice buttons
+- generateCity() for building elements
+- displayRandomFact() with rotation
+- Impact list generation in endGame()
+- Dynamic HTML creation with innerHTML
+- Event listeners attachment
+
+Prompt 12: Resource Clamping and Validation
+--------------------------------------------
+"Add validation to ensure resource values stay within valid ranges: carbon >= 0, budget >= 0,
+happiness between 0-100. Include checks after every decision and event."
+
+Response: Implemented clamping logic:
+- Math.max() for minimum values
+- Math.min() for maximum values
+- Applied in makeDecision()
+- Applied in triggerRandomEvent()
+- Prevents impossible game states
+
+Prompt 13: Mobile Touch Optimization
+-------------------------------------
+"Optimize the JavaScript for mobile devices. Ensure touch events work properly, prevent
+double-tap zoom on buttons, and handle orientation changes."
+
+Response: Added mobile optimizations:
+- Touch-friendly button sizes in CSS
+- Viewport meta tag configuration
+- Event listeners work with touch
+- Responsive layout adjustments
+- No special touch event handling needed (click works)
+
+Prompt 14: Local Storage Integration
+-------------------------------------
+"Add functionality to save sound preferences to localStorage so the setting persists between
+sessions."
+
+Response: Implemented storage functions:
+- Save sound setting on toggle
+- Load setting on page load
+- localStorage.setItem() and getItem()
+- Fallback for browsers without localStorage
+- Setting persistence across sessions
+
+Prompt 15: Performance Optimization
+------------------------------------
+"Review the code for performance issues. Optimize animations, reduce DOM manipulation, and
+ensure smooth gameplay even on slower devices."
+
+Response: Applied optimizations:
+- CSS transitions instead of JS animations
+- Batch DOM updates in updateUI()
+- Minimal reflows and repaints
+- Efficient selector usage
+- Debounced event handlers where needed
+- Lightweight vanilla JS (no frameworks)

@@ -1,0 +1,134 @@
+ASSET GENERATION PROMPTS - EcoCity Challenge Game
+==================================================
+
+Prompt 1: City Visualization Design
+------------------------------------
+"I need to create a simple 2D city visualization using HTML/CSS that shows buildings and
+changes based on player decisions. The city should be minimalist but recognizable. How can
+I create buildings using just CSS without image files?"
+
+Response: Generated CSS-based building system using div elements with gradients, varying
+heights, and window effects using pseudo-elements. Includes sky background with gradient
+and ground layer.
+
+Prompt 2: Icon Selection
+-------------------------
+"What emoji icons should I use throughout the game to represent different concepts? I need
+icons for: carbon emissions, budget, happiness, energy, transport, waste, industry, and
+various game states."
+
+Response: Provided comprehensive emoji set:
+- 🌱 Carbon/Environment
+- 💰 Budget/Money
+- 😊 Happiness
+- ⚡ Energy
+- 🚗 Transport
+- ♻️ Waste
+- 🏭 Industry
+- 🌍 Planet/Global
+- ⚠️ Warning
+- ✅ Success
+- ❌ Failure
+
+Prompt 3: Color Palette Design
+-------------------------------
+"Create a color palette for the game that is minimalist, colorful, and conveys both
+environmental themes and modern design. I need colors for backgrounds, buttons, resource
+indicators, and UI elements."
+
+Response: Generated color system:
+- Primary gradient: #667eea to #764ba2 (purple)
+- Success/Carbon: #48bb78 (green)
+- Warning/Budget: #ed8936 (orange)
+- Info/Happiness: #9f7aea (purple)
+- Backgrounds: White with subtle gradients
+- Text: #2d3748 (dark gray) for readability
+
+Prompt 4: Animation Effects
+----------------------------
+"What CSS animations would enhance the game experience without being distracting? I want
+smooth transitions between screens, resource bar updates, and feedback for player actions."
+
+Response: Designed animation system:
+- fadeIn for screen transitions (0.5s)
+- Building growth animation (scaleY)
+- Button hover effects (translateY, shadow)
+- Resource bar smooth transitions (0.5s ease)
+- Event notification slide-in
+- Card hover interactions
+
+Prompt 5: Resource Bar Visualization
+-------------------------------------
+"How should I visualize the three resources (carbon, budget, happiness) so players can
+quickly understand their status? They need to be clear, color-coded, and show both current
+value and trend."
+
+Response: Created card-based resource display with:
+- Large emoji icon
+- Label text
+- Horizontal progress bar with gradient fill
+- Numeric value display
+- Color-coded borders
+- Smooth width transitions for bar updates
+
+Prompt 6: Decision Card Layout
+-------------------------------
+"Design the layout for decision cards where players choose between 4 options. Each option
+needs to show the choice name, description, and effects on all three resources. How should
+this be structured for clarity?"
+
+Response: Designed card system with:
+- Category badge at top
+- Clear title and description
+- 4 choice buttons in vertical layout
+- Each choice shows: name, description, and effect indicators
+- Color-coded effects (green for positive, red for negative)
+- Hover states for interactivity
+
+Prompt 7: Weather Effects
+--------------------------
+"Can I add simple weather effects to the city visualization using CSS? Maybe clouds or
+sun rays that appear during certain events?"
+
+Response: Created weather effect layer with CSS animations for:
+- Floating clouds (translateX animation)
+- Sun rays (opacity pulse)
+- Rain effect (CSS animation with pseudo-elements)
+- Applied conditionally based on game events
+
+Prompt 8: Responsive Design Elements
+-------------------------------------
+"The game needs to work on mobile devices too. What responsive design considerations should
+I implement for screens smaller than 768px?"
+
+Response: Generated mobile-first responsive rules:
+- Stack resource cards vertically
+- Reduce font sizes proportionally
+- Adjust city container height
+- Single column for results stats
+- Touch-friendly button sizes (min 44px)
+- Flexible padding and margins
+
+Prompt 9: Loading and Transition States
+----------------------------------------
+"How can I create smooth transitions between game states (making a decision, seeing results,
+random events) without jarring jumps?"
+
+Response: Implemented transition system:
+- setTimeout delays for sequential actions
+- Fade animations between states
+- Event notification system with slide-in/out
+- Progress bar smooth width transitions
+- Screen fade-in on activation
+
+Prompt 10: Typography and Readability
+--------------------------------------
+"What font choices and text sizing would work best for readability while maintaining the
+modern, clean aesthetic?"
+
+Response: Selected typography system:
+- Font family: 'Segoe UI' (system font, fast loading)
+- Heading sizes: 3.5em (title), 2.5em (h2), 1.8em (h3)
+- Body text: 1.1-1.2em for readability
+- Line height: 1.6-1.8 for comfortable reading
+- Font weights: 600 for emphasis, 400 for body

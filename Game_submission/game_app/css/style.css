@@ -1,0 +1,711 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Screen Management */
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.screen.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Menu Screen */
+.menu-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 60px 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+}
+
+.game-title h1 {
+    font-size: 3.5em;
+    color: #2d3748;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #4a5568;
+    margin-bottom: 40px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 18px 36px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
+}
+
+.btn-icon {
+    font-size: 1.3em;
+}
+
+.climate-facts {
+    margin-top: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    border-radius: 15px;
+}
+
+.fact-text {
+    color: #2d3748;
+    font-size: 0.95em;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* Instructions Screen */
+.instructions-container {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.instructions-container h2 {
+    color: #2d3748;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.instruction-section {
+    margin-bottom: 30px;
+}
+
+.instruction-section h3 {
+    color: #4a5568;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.instruction-section p, .instruction-section li {
+    color: #718096;
+    font-size: 1.1em;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.instruction-section ul {
+    margin-left: 20px;
+}
+
+.resource-guide {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.guide-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f7fafc;
+    border-radius: 10px;
+}
+
+.guide-icon {
+    font-size: 2em;
+}
+
+/* Game Screen */
+#gameScreen.active {
+    display: block;
+    padding: 0;
+}
+
+.game-header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.year-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.year-display .label {
+    font-size: 0.9em;
+    color: #718096;
+    font-weight: 600;
+}
+
+.year-display .value {
+    font-size: 2em;
+    color: #2d3748;
+    font-weight: bold;
+}
+
+.btn-icon-only {
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-icon-only:hover {
+    transform: scale(1.2);
+}
+
+.game-content {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Resources Panel */
+.resources-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.resource-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+}
+
+.resource-card.carbon {
+    border-left: 5px solid #48bb78;
+}
+
+.resource-card.budget {
+    border-left: 5px solid #ed8936;
+}
+
+.resource-card.happiness {
+    border-left: 5px solid #9f7aea;
+}
+
+.resource-icon {
+    font-size: 3em;
+}
+
+.resource-info {
+    flex: 1;
+}
+
+.resource-label {
+    display: block;
+    font-size: 0.9em;
+    color: #718096;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.resource-bar {
+    width: 100%;
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.resource-fill {
+    height: 100%;
+    width: 0%; /* Add this line */
+    transition: width 0.5s ease, background-color 0.5s ease;
+    border-radius: 10px;
+}
+
+
+.carbon-fill {
+    background: linear-gradient(90deg, #48bb78, #38a169);
+}
+
+.budget-fill {
+    background: linear-gradient(90deg, #ed8936, #dd6b20);
+}
+
+.happiness-fill {
+    background: linear-gradient(90deg, #9f7aea, #805ad5);
+}
+
+.resource-value {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+/* City Visualization */
+.city-container {
+    background: linear-gradient(to bottom, #87ceeb 0%, #98d8e8 100%);
+    border-radius: 20px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.city-background {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, #90ee90 0%, #228b22 100%);
+}
+
+.city-buildings {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 0 50px;
+}
+
+.building {
+    width: 60px;
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    animation: buildingGrow 0.5s ease-out;
+}
+
+@keyframes buildingGrow {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+
+.building::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 15px,
+            rgba(255, 255, 255, 0.1) 15px,
+            rgba(255, 255, 255, 0.1) 20px
+    );
+}
+
+.weather-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Decision Card */
+.decision-container {
+    display: flex;
+    justify-content: center;
+}
+
+.decision-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-category {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    color: #2d3748;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.card-description {
+    color: #718096;
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.choices {
+    display: grid;
+    gap: 15px;
+}
+
+.choice-btn {
+    padding: 20px;
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.choice-btn:hover {
+    border-color: #667eea;
+    background: #edf2f7;
+    transform: translateX(5px);
+}
+
+.choice-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 8px;
+}
+
+.choice-effects {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9em;
+    color: #718096;
+}
+
+.effect {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.effect.positive {
+    color: #48bb78;
+}
+
+.effect.negative {
+    color: #f56565;
+}
+
+/* Event Notification */
+.event-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: white;
+    padding: 25px 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    max-width: 500px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+}
+
+.event-notification.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.event-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.event-icon {
+    font-size: 2.5em;
+}
+
+.event-text {
+    color: #2d3748;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+/* Results Screen */
+.results-container {
+    background: white;
+    padding: 50px;
+    border-radius: 30px;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.results-header h2 {
+    font-size: 3em;
+    color: #2d3748;
+    margin-bottom: 20px;
+}
+
+.final-score {
+    font-size: 2.5em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 30px;
+}
+
+.results-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #f7fafc;
+    border-radius: 15px;
+}
+
+.stat-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: #718096;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.results-message {
+    padding: 25px;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.results-message p {
+    color: #2d3748;
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+.impact-summary {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.impact-summary h3 {
+    color: #2d3748;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.impact-item {
+    padding: 12px;
+    background: #f7fafc;
+    border-left: 4px solid #667eea;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #4a5568;
+}
+
+.results-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-container {
+        padding: 40px 20px;
+    }
+
+    .game-title h1 {
+        font-size: 2.5em;
+    }
+
+    .resources-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .city-container {
+        height: 200px;
+    }
+
+    .results-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .results-buttons {
+        flex-direction: column;
+    }
+}
+
+/* === Dynamic City Feature Layer === */
+.city-features {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.feature {
+    position: absolute;
+    transform-origin: bottom center;
+    animation: fadeIn 0.6s ease;
+}
+/* Solar Farm */
+.solar-farm { display: flex; gap: 6px; bottom: 10px; left: 8%; }
+.solar-panel { width: 40px; height: 20px; background: linear-gradient(135deg,#1e3a8a,#3b82f6); border: 2px solid #bfdbfe; border-radius: 4px; transform: skewX(-15deg); box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+/* Wind Turbines */
+.wind-turbines { display: flex; gap: 30px; bottom: 10px; left: 20%; }
+.wind-turbine { position: relative; width: 6px; height: 70px; background: #e2e8f0; border-radius: 3px; }
+.turbine-blades { position: absolute; top: 0; left: 50%; width: 50px; height: 50px; transform: translate(-50%, -40%); }
+.turbine-blades span { position: absolute; width: 6px; height: 22px; background: #edf2f7; top: 50%; left: 50%; transform-origin: top center; border-radius: 3px; }
+.turbine-blades span:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); }
+.turbine-blades span:nth-child(2) { transform: translate(-50%, -50%) rotate(120deg); }
+.turbine-blades span:nth-child(3) { transform: translate(-50%, -50%) rotate(240deg); }
+.turbine-spin { animation: spin 4s linear infinite; }
+@keyframes spin { from { transform: translate(-50%, -40%) rotate(0deg); } to { transform: translate(-50%, -40%) rotate(360deg); } }
+/* Coal Plant */
+.coal-plant { width: 90px; height: 70px; background: #4a5568; bottom: 10px; right: 8%; border-radius: 6px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+.stack { position: absolute; width: 22px; height: 55px; background: #2d3748; left: 10px; top: -45px; border-radius: 4px 4px 0 0; }
+.stack + .stack { left: 45px; }
+.smoke { position: absolute; top: -55px; left: 50%; width: 14px; height: 14px; background: rgba(200,200,200,0.6); border-radius: 50%; animation: puff 3s ease-in-out infinite; }
+@keyframes puff { 0% { transform: translate(-50%,0) scale(0.6); opacity: .7;} 50% { transform: translate(-50%,-25px) scale(1); opacity:.4;} 100% { transform: translate(-50%,-50px) scale(1.2); opacity:0;} }
+/* Nuclear Plant */
+.nuclear-plant { width: 110px; height: 60px; background: #2d3748; bottom: 10px; right: 20%; border-radius: 8px; }
+.tower { position: absolute; width: 45px; height: 70px; background: #4a5568; top: -50px; left: 10px; border-radius: 10px 10px 8px 8px; }
+.tower + .tower { left: 55px; }
+.steam { position: absolute; top: -60px; left: 28px; width: 16px; height: 16px; background: rgba(255,255,255,0.7); border-radius: 50%; animation: steamRise 2.5s ease-in-out infinite; }
+.steam + .steam { left: 72px; animation-delay: .6s; }
+@keyframes steamRise { 0% { transform: translateY(0) scale(.6); opacity:.7;} 50% { transform: translateY(-25px) scale(1); opacity:.5;} 100% { transform: translateY(-50px) scale(1.3); opacity:0;} }
+/* Recycling Center */
+.recycling-center { width: 80px; height: 55px; background: #2f855a; bottom: 10px; left: 40%; border-radius: 6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px; font-weight:bold; }
+/* Landfill */
+.landfill { width: 100px; height: 30px; background: #654321; bottom: 10px; left: 38%; border-radius: 4px; box-shadow: inset 0 0 5px rgba(0,0,0,.5); }
+.landfill::after { content:''; position:absolute; left:5px; right:5px; top:-12px; height:12px; background: repeating-linear-gradient(45deg,#444 0 8px,#666 8px 16px); border-radius:4px 4px 0 0; }
+/* Compost */
+.compost { width: 70px; height: 40px; background: #805ad5; bottom: 10px; left: 52%; border-radius: 6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; }
+/* Waste-to-Energy */
+.waste-energy { width: 90px; height: 55px; background: #dd6b20; bottom: 10px; left: 50%; border-radius: 6px; color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; }
+/* Factory / Green Factory */
+.factory { width: 95px; height: 65px; background: #4a5568; bottom: 10px; right: 35%; border-radius: 6px; }
+.factory::after { content:''; position:absolute; top:-35px; left:15px; width:22px; height:35px; background:#2d3748; border-radius:4px 4px 0 0; }
+.green-factory { width: 95px; height: 65px; background: #2f855a; bottom: 10px; right: 35%; border-radius: 6px; box-shadow: 0 0 0 3px #48bb78 inset; }
+.green-factory::after { content:'🌿'; position:absolute; top:-30px; left:24px; font-size:22px; }
+/* Tech Hub */
+.tech-hub { width: 100px; height: 60px; background: linear-gradient(135deg,#667eea,#764ba2); bottom:10px; right:10%; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:600; }
+/* Bike Lane */
+.bike-lane { position:absolute; bottom:0; left:0; right:0; height:14px; background: repeating-linear-gradient(90deg,#2f855a 0 40px,#38a169 40px 80px); }
+/* EV Station */
+.ev-station { width:40px; height:55px; background:#3182ce; bottom:10px; left:25%; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px; font-weight:bold; }
+/* Metro Station */
+.metro-station { width:75px; height:50px; background:#1a202c; bottom:10px; left:18%; border-radius:6px; color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; }
+/* Bus Depot */
+.bus-depot { width:85px; height:50px; background:#3182ce; bottom:10px; left:15%; border-radius:6px; color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; }
+/* Electric Bus Depot */
+.e-bus-depot { width:85px; height:50px; background:#2f855a; bottom:10px; left:15%; border-radius:6px; color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; box-shadow:0 0 0 3px #48bb78 inset; }
+/* Concession Tax sign */
+.congestion-tax { width:60px; height:50px; background:#ed8936; bottom:10px; left:30%; border-radius:6px; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; }
+/* Plastic Ban sign */
+.plastic-ban { width:70px; height:45px; background:#e53e3e; bottom:10px; left:60%; border-radius:6px; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; }
+/* Circular Economy */
+.circular-economy { width:95px; height:55px; background:#805ad5; bottom:10px; right:25%; border-radius:8px; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; }
+/* Carbon Trading */
+.carbon-trading { width:85px; height:55px; background:#ed8936; bottom:10px; right:25%; border-radius:8px; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; }
+/* LED Program indicator */
+.led-program { position:absolute; bottom:120px; left:5%; width:55px; height:25px; background:#f6e05e; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; box-shadow:0 0 8px rgba(246,224,94,.8); }
+/* Smart Grid */
+.smart-grid { position:absolute; bottom:150px; left:7%; width:65px; height:28px; background:#48bb78; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:11px; color:#fff; font-weight:bold; box-shadow:0 0 8px rgba(72,187,120,.7); }
+/* Solar Roof Incentives */
+.solar-roofs { position:absolute; bottom:180px; left:10%; width:70px; height:30px; background:#3b82f6; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:11px; color:#fff; font-weight:bold; }

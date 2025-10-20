@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoCity Challenge - Climate Game</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Menu Screen -->
+    <div id="menuScreen" class="screen active">
+        <div class="menu-container">
+            <div class="game-title">
+                <h1>🌍 EcoCity Challenge</h1>
+                <p class="subtitle">Save Our Planet, One Decision at a Time</p>
+            </div>
+
+            <div class="menu-buttons">
+                <button class="btn btn-primary" onclick="showInstructions()">
+                    <span class="btn-icon">📖</span>
+                    How to Play
+                </button>
+                <button class="btn btn-primary" onclick="startGame()">
+                    <span class="btn-icon">🎮</span>
+                    Single player
+                </button>
+                <button class="btn btn-secondary" onclick="toggleSound()">
+                    <span class="btn-icon" id="soundIcon">🔊</span>
+                    <span id="soundText">Sound: ON</span>
+                </button>
+            </div>
+
+            <div class="climate-facts">
+                <p class="fact-text" id="climateFact"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructions Screen -->
+    <div id="instructionsScreen" class="screen">
+        <div class="instructions-container">
+            <h2>📖 How to Play</h2>
+
+            <div class="instruction-section">
+                <h3>🎯 Goal</h3>
+                <p>Manage your city for 10 years while keeping carbon emissions low, maintaining budget, and keeping citizens happy!</p>
+            </div>
+
+            <div class="instruction-section">
+                <h3>🎮 Gameplay</h3>
+                <ul>
+                    <li>Each turn represents 1 year</li>
+                    <li>Make decisions in 4 categories: Energy, Transport, Waste, Industry</li>
+                    <li>Each choice affects your city's carbon, budget, and happiness</li>
+                    <li>Watch out for random events!</li>
+                </ul>
+            </div>
+
+            <div class="instruction-section">
+                <h3>📊 Resources</h3>
+                <div class="resource-guide">
+                    <div class="guide-item">
+                        <span class="guide-icon">🌱</span>
+                        <strong>Carbon:</strong> Keep below 100 to win!
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-icon">💰</span>
+                        <strong>Budget:</strong> Don't go bankrupt!
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-icon">😊</span>
+                        <strong>Happiness:</strong> Keep citizens satisfied!
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="backToMenu()">Back to Menu</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen">
+        <div class="game-header">
+            <div class="year-display">
+                <span class="label">Year</span>
+                <span class="value" id="yearDisplay">1/10</span>
+            </div>
+            <button class="btn-icon-only" onclick="pauseGame()" title="Pause">⏸️</button>
+        </div>
+
+        <div class="game-content">
+            <!-- Resources Panel -->
+            <div class="resources-panel">
+                <div class="resource-card carbon">
+                    <div class="resource-icon">🌿</div>
+                    <div class="resource-info">
+                        <span class="resource-label" id="labelCarbon">Environment</span>
+                        <div class="resource-bar">
+                            <div class="resource-fill carbon-fill" id="carbonBar"></div>
+                        </div>
+                        <span class="resource-value" id="carbonValue">50</span>
+                    </div>
+                </div>
+
+                <div class="resource-card budget">
+                    <div class="resource-icon">💰</div>
+                    <div class="resource-info">
+                        <span class="resource-label" id="labelBudget">Economy</span>
+                        <div class="resource-bar">
+                            <div class="resource-fill budget-fill" id="budgetBar"></div>
+                        </div>
+                        <span class="resource-value" id="budgetValue">50</span>
+                    </div>
+                </div>
+
+                <div class="resource-card happiness">
+                    <div class="resource-icon">😊</div>
+                    <div class="resource-info">
+                        <span class="resource-label" id="labelHappiness">Happiness</span>
+                        <div class="resource-bar">
+                            <div class="resource-fill happiness-fill" id="happinessBar"></div>
+                        </div>
+                        <span class="resource-value" id="happinessValue">50%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- City Visualization -->
+            <div class="city-container" id="cityContainer">
+                <div class="city-background"></div>
+                <div class="city-buildings" id="cityBuildings"></div>
+                <div class="city-features" id="cityFeatures"></div>
+                <div class="weather-effect" id="weatherEffect"></div>
+            </div>
+
+            <!-- Decision Card -->
+            <div class="decision-container" id="decisionContainer">
+                <div class="decision-card">
+                    <div class="card-category" id="cardCategory">Energy</div>
+                    <h3 class="card-title" id="cardTitle">Choose Your Energy Source</h3>
+                    <p class="card-description" id="cardDescription">How should the city generate power?</p>
+
+                    <div class="choices" id="choicesContainer">
+                        <!-- Choices will be dynamically inserted -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Notification -->
+            <div class="event-notification" id="eventNotification">
+                <div class="event-content">
+                    <span class="event-icon" id="eventIcon">⚠️</span>
+                    <p class="event-text" id="eventText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="resultsScreen" class="screen">
+        <div class="results-container">
+            <div class="results-header">
+                <h2 id="resultsTitle">Game Over!</h2>
+                <div class="final-score" id="finalScore">Score: 0</div>
+            </div>
+
+            <div class="results-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">🌱</span>
+                    <span class="stat-label" id="finalLabelCarbon">Final Carbon</span>
+                    <span class="stat-value" id="finalCarbon">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">💰</span>
+                    <span class="stat-label" id="finalLabelBudget">Final Budget</span>
+                    <span class="stat-value" id="finalBudget">0M</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">😊</span>
+                    <span class="stat-label" id="finalLabelHappiness">Final Happiness</span>
+                    <span class="stat-value" id="finalHappiness">0%</span>
+                </div>
+            </div>
+
+            <div class="results-message">
+                <p id="resultsMessage"></p>
+            </div>
+
+            <div class="impact-summary">
+                <h3>🌍 Your Impact</h3>
+                <div id="impactList"></div>
+            </div>
+
+            <div class="results-buttons">
+                <button class="btn btn-primary" onclick="startGame()">Play Again</button>
+                <button class="btn btn-secondary" onclick="backToMenu()">Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
