@@ -1,0 +1,39 @@
+# Concept Generation Prompts
+
+## Initial Game Concept
+**Prompt**: "Tạo ý tưởng cho một trò chơi web 2D về phát triển bền vững tại Việt Nam. Game phải giải quyết vấn đề xã hội, dạng board game/card game, chỉ dùng HTML/CSS/JS, có màn hình Menu và Play."
+
+**Response**: Đề xuất game "GreenCity Mayor" - người chơi là thị trưởng quản lý thành phố, cân bằng 3 chỉ số: Kinh tế, Môi trường, Hạnh phúc.
+
+## Game Mechanics Design
+**Prompt**: "Thiết kế cơ chế game cho GreenCity Mayor. Người chơi là thị trưởng, phải cân bằng Kinh tế/Môi trường/Hạnh phúc trong 10 năm. Mỗi lượt rút 3 thẻ chính sách, chọn 1 thẻ."
+
+**Response**:
+- Stats bắt đầu ở 50/100
+- Win: Cả 3 stats ≥ 50 sau 10 năm
+- Lose: Bất kỳ stat nào = 0
+- Mỗi thẻ có effects tích cực/tiêu cực
+
+## Vietnamese Context Integration
+**Prompt**: "Tạo các thẻ chính sách phù hợp với bối cảnh Việt Nam. Bao gồm các vấn đề như: ô nhiễm không khí, phát triển công nghiệp, đô thị hóa, biến đổi khí hậu."
+
+**Response**: Các thẻ như "Khu Công Nghệ Cao", "Năng Lượng Mặt Trời", "Y Tế Miễn Phí", "Giao Thông Xanh" phản ánh thực tế Việt Nam.
+
+## Balancing Considerations
+**Prompt**: "Làm sao để cân bằng game cho challenging nhưng fair? Người chơi cần cảm thấy mỗi quyết định đều quan trọng và có trade-offs."
+
+**Response**:
+- Economic cards: High reward, environmental cost
+- Environmental cards: Long-term benefits, short-term cost
+- Happiness cards: Social benefits, economic burden
+- Balanced cards: Moderate effects
+- Risk/reward cards: Extreme swings
+
+## Educational Goals
+**Prompt**: "Game cần truyền tải message gì về phát triển bền vững? Làm sao để không preachy mà vẫn educational?"
+
+**Response**:
+- Embed learning trong core mechanics
+- Mỗi decision có consequences thực tế
+- Không có "correct" answer, chỉ có trade-offs
+- Người chơi tự khám phá complexity của sustainable development

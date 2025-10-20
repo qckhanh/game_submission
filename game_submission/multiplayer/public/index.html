@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenCity Mayor - Multiplayer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Connection Screen -->
+        <div id="connection-screen" class="screen active">
+            <div class="connection-content">
+                <h1 class="game-title">🏙️ GreenCity Mayor</h1>
+                <h2 class="game-subtitle">Multiplayer - Thị Trưởng Thành Phố Xanh</h2>
+                <p class="game-description">
+                    Chơi cùng bạn bè! 2-10 người chơi. Thị trưởng đề xuất chính sách, mọi người bỏ phiếu.
+                </p>
+
+                <div class="connection-form">
+                    <input type="text" id="player-name" placeholder="Nhập tên của bạn..." maxlength="20" required>
+
+                    <div class="connection-buttons">
+                        <button id="create-room-btn" class="btn btn-primary">🏠 Tạo Phòng Mới</button>
+                        <div class="join-room-section">
+                            <input type="text" id="room-code" placeholder="Mã phòng (6 ký tự)" maxlength="6">
+                            <button id="join-room-btn" class="btn btn-secondary">🚪 Vào Phòng</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="connection-status" class="connection-status hidden">
+                    <div class="loading-spinner"></div>
+                    <p>Đang kết nối...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lobby Screen -->
+        <div id="lobby-screen" class="screen">
+            <div class="lobby-content">
+                <h2>🏠 Phòng: <span id="room-id-display"></span></h2>
+                <p class="lobby-description">Chia sẻ mã phòng cho bạn bè để họ tham gia!</p>
+
+                <div id="players-list" class="players-list">
+                    <h3>👥 Danh Sách Người Chơi:</h3>
+                    <div id="players-container"></div>
+                </div>
+
+                <div class="lobby-actions">
+                    <button id="start-game-btn" class="btn btn-primary hidden">🎮 Bắt Đầu Game</button>
+                    <button id="leave-room-btn" class="btn btn-secondary">🚪 Rời Phòng</button>
+                </div>
+
+                <div class="game-rules">
+                    <h4>📋 Luật Chơi:</h4>
+                    <ul>
+                        <li>🏛️ Thị trưởng (ngẫu nhiên) đề xuất 1 trong 3 chính sách</li>
+                        <li>🗳️ Các người chơi khác bỏ phiếu: Đồng ý / Không đồng ý / Phiếu trắng</li>
+                        <li>⏰ Thời gian bỏ phiếu: 30 giây</li>
+                        <li>🔄 Thị trưởng thay đổi mỗi năm</li>
+                        <li>🎯 Mục tiêu: Duy trì 3 chỉ số > 50 trong 10 năm</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <!-- Game Stats -->
+            <div class="game-header">
+                <div class="year-display">
+                    <h2>Năm <span id="current-year">1</span>/10</h2>
+                </div>
+                <div id="room-info" class="room-info">
+                    Phòng: <span id="current-room-id"></span>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stats-grid">
+                    <div class="stat-item economy">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Kinh Tế</div>
+                            <div class="stat-value" id="economy-value">50</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill economy" id="economy-bar" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-item environment">
+                        <div class="stat-icon">🌿</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Môi Trường</div>
+                            <div class="stat-value" id="environment-value">50</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill environment" id="environment-bar" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-item happiness">
+                        <div class="stat-icon">😊</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Hạnh Phúc</div>
+                            <div class="stat-value" id="happiness-value">50</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill happiness" id="happiness-bar" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Players Status -->
+            <div id="players-status" class="players-status">
+                <h3>👥 Người Chơi:</h3>
+                <div id="players-status-list"></div>
+            </div>
+
+            <!-- Mayor Proposal Phase -->
+            <div id="proposal-phase" class="game-phase hidden">
+                <div class="phase-header">
+                    <h3>🏛️ <span id="mayor-name"></span> đang đề xuất chính sách...</h3>
+                </div>
+
+                <div id="mayor-cards" class="cards-container hidden">
+                    <h4>Chọn một chính sách để đề xuất:</h4>
+                    <div class="cards-grid" id="mayor-cards-grid">
+                        <!-- Cards for mayor -->
+                    </div>
+                </div>
+
+                <div id="waiting-proposal" class="waiting-message">
+                    <div class="loading-spinner"></div>
+                    <p>Đang chờ thị trưởng đề xuất chính sách...</p>
+                </div>
+            </div>
+
+            <!-- Voting Phase -->
+            <div id="voting-phase" class="game-phase hidden">
+                <div class="voting-header">
+                    <h3>🗳️ Bỏ Phiếu Cho Chính Sách</h3>
+                    <div id="voting-timer" class="voting-timer">
+                        <div class="timer-bar">
+                            <div id="timer-fill" class="timer-fill"></div>
+                        </div>
+                        <span id="timer-text">30s</span>
+                    </div>
+                </div>
+
+                <div class="proposed-policy">
+                    <div id="proposed-policy-card" class="policy-card-display">
+                        <!-- Proposed policy will be displayed here -->
+                    </div>
+                </div>
+
+                <div id="voting-buttons" class="voting-buttons">
+                    <button id="vote-approve" class="btn btn-vote btn-approve">
+                        ✅ Đồng Ý
+                    </button>
+                    <button id="vote-reject" class="btn btn-vote btn-reject">
+                        ❌ Không Đồng Ý
+                    </button>
+                    <button id="vote-abstain" class="btn btn-vote btn-abstain">
+                        ⚪ Phiếu Trắng
+                    </button>
+                </div>
+
+                <div id="vote-status" class="vote-status">
+                    <p>Đã bỏ phiếu: <span id="votes-count">0</span>/<span id="total-voters">0</span></p>
+                </div>
+            </div>
+
+            <!-- Results Phase -->
+            <div id="results-phase" class="game-phase hidden">
+                <div class="results-header">
+                    <h3>📊 Kết Quả Bỏ Phiếu</h3>
+                </div>
+
+                <div id="vote-results" class="vote-results">
+                    <!-- Vote results will be displayed here -->
+                </div>
+
+                <div id="policy-effect" class="policy-effect">
+                    <!-- Policy effects will be shown here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Game End Screen -->
+        <div id="end-screen" class="screen">
+            <div class="end-content">
+                <div id="victory-screen" class="result-screen hidden">
+                    <h1 class="result-title victory">🎉 Chiến Thắng!</h1>
+                    <p class="result-message">
+                        Chúc mừng! Tất cả các thị trưởng đã hợp tác thành công phát triển GreenCity bền vững!
+                    </p>
+                </div>
+
+                <div id="defeat-screen" class="result-screen hidden">
+                    <h1 class="result-title defeat">💔 Thất Bại</h1>
+                    <p class="result-message" id="defeat-message"></p>
+                </div>
+
+                <div class="final-stats">
+                    <h3>📊 Kết Quả Cuối Cùng:</h3>
+                    <div class="final-stats-grid">
+                        <div>💰 Kinh Tế: <span id="final-economy">0</span></div>
+                        <div>🌿 Môi Trường: <span id="final-environment">0</span></div>
+                        <div>😊 Hạnh Phúc: <span id="final-happiness">0</span></div>
+                    </div>
+                </div>
+
+                <div class="end-buttons">
+                    <button id="new-game-btn" class="btn btn-primary">🎮 Game Mới</button>
+                    <button id="back-to-lobby-btn" class="btn btn-secondary">🏠 Về Lobby</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Modal -->
+        <div id="error-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>⚠️ Lỗi</h3>
+                <p id="error-message"></p>
+                <button id="error-ok-btn" class="btn btn-secondary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="multiplayer-script.js"></script>
+</body>
+</html>

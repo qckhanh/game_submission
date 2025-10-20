@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenCity Mayor - Thị Trưởng Thành Phố Xanh</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Menu Screen -->
+        <div id="menu-screen" class="screen active">
+            <div class="menu-content">
+                <h1 class="game-title">🏙️ GreenCity Mayor</h1>
+                <h2 class="game-subtitle">Thị Trưởng Thành Phố Xanh</h2>
+                <p class="game-description">
+                    Bạn là Thị trưởng của GreenCity. Hãy đưa ra những quyết định khôn ngoan để
+                    cân bằng giữa Kinh tế, Môi trường và Hạnh phúc người dân trong 10 năm!
+                </p>
+                <div class="menu-buttons">
+                    <button id="start-game-btn" class="btn btn-primary">🎮 Bắt Đầu Chơi</button>
+                    <button id="instructions-btn" class="btn btn-secondary">📖 Hướng Dẫn</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Screen -->
+        <div id="instructions-screen" class="screen">
+            <div class="instructions-content">
+                <h2>📖 Hướng Dẫn Chơi</h2>
+                <div class="instructions-text">
+                    <h3>🎯 Mục Tiêu:</h3>
+                    <p>Duy trì thành phố trong 10 năm với cả 3 chỉ số > 50 để thắng!</p>
+
+                    <h3>📊 Các Chỉ Số:</h3>
+                    <ul>
+                        <li>💰 <strong>Kinh Tế:</strong> Thịnh vượng kinh tế của thành phố</li>
+                        <li>🌿 <strong>Môi Trường:</strong> Chất lượng môi trường sống</li>
+                        <li>😊 <strong>Hạnh Phúc:</strong> Mức độ hài lòng của người dân</li>
+                    </ul>
+
+                    <h3>🎮 Cách Chơi:</h3>
+                    <p>Mỗi năm, bạn sẽ được rút 3 thẻ chính sách và chọn 1 thẻ để thực hiện.
+                    Mỗi thẻ sẽ ảnh hưởng đến các chỉ số khác nhau.</p>
+
+                    <p><strong>⚠️ Cảnh báo:</strong> Nếu bất kỳ chỉ số nào xuống 0, thành phố sẽ sụp đổ!</p>
+                </div>
+                <button id="back-to-menu-btn" class="btn btn-secondary">🔙 Trở Về Menu</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <!-- Stats Display -->
+            <div class="stats-container">
+                <div class="year-display">
+                    <h2>Năm <span id="current-year">1</span>/10</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item economy">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Kinh Tế</div>
+                            <div class="stat-value" id="economy-value">50</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill economy" id="economy-bar" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-item environment">
+                        <div class="stat-icon">🌿</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Môi Trường</div>
+                            <div class="stat-value" id="environment-value">50</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill environment" id="environment-bar" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-item happiness">
+                        <div class="stat-icon">😊</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Hạnh Phúc</div>
+                            <div class="stat-value" id="happiness-value">50</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill happiness" id="happiness-bar" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Container -->
+            <div class="cards-container">
+                <h3>Chọn một chính sách để thực hiện:</h3>
+                <div class="cards-grid" id="cards-grid">
+                    <!-- Cards will be generated here -->
+                </div>
+            </div>
+
+            <!-- Action Feedback -->
+            <div id="action-feedback" class="action-feedback hidden">
+                <div class="feedback-content">
+                    <h3 id="feedback-title"></h3>
+                    <p id="feedback-description"></p>
+                    <div id="feedback-effects"></div>
+                    <button id="next-year-btn" class="btn btn-primary">➡️ Năm Tiếp Theo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-content">
+                <div id="victory-screen" class="result-screen hidden">
+                    <h1 class="result-title victory">🎉 Chiến Thắng!</h1>
+                    <p class="result-message">
+                        Chúc mừng! Bạn đã thành công trong việc phát triển GreenCity một cách bền vững.
+                        Thành phố của bạn đã thịnh vượng trong 10 năm với sự cân bằng hoàn hảo!
+                    </p>
+                </div>
+                <div id="defeat-screen" class="result-screen hidden">
+                    <h1 class="result-title defeat">💔 Thất Bại</h1>
+                    <p class="result-message" id="defeat-message"></p>
+                </div>
+                <div class="final-stats">
+                    <h3>📊 Kết Quả Cuối Cùng:</h3>
+                    <div class="final-stats-grid">
+                        <div>💰 Kinh Tế: <span id="final-economy">0</span></div>
+                        <div>🌿 Môi Trường: <span id="final-environment">0</span></div>
+                        <div>😊 Hạnh Phúc: <span id="final-happiness">0</span></div>
+                    </div>
+                </div>
+                <div class="result-buttons">
+                    <button id="play-again-btn" class="btn btn-primary">🔄 Chơi Lại</button>
+                    <button id="menu-btn" class="btn btn-secondary">🏠 Về Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
