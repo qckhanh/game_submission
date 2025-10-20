@@ -151,10 +151,20 @@ class GameRoom {
     startGame() {
         if (!this.canStartGame()) return false;
 
+        // Randomly select initial mayor instead of using first player
+        this.selectRandomMayor();
+
         this.gameState.phase = 'proposing';
         this.drawCards();
         this.broadcastGameState();
         return true;
+    }
+
+    selectRandomMayor() {
+        const playerIds = Array.from(this.players.keys());
+        const randomIndex = Math.floor(Math.random() * playerIds.length);
+        const randomMayorId = playerIds[randomIndex];
+        this.setMayor(randomMayorId);
     }
 
     drawCards() {
@@ -244,6 +254,74 @@ class GameRoom {
             this.gameState.stats[stat] += policy.effects[stat];
             this.gameState.stats[stat] = Math.max(0, Math.min(100, this.gameState.stats[stat]));
         });
+
+        // Check for critical stats and broadcast warnings
+        this.checkCriticalStats();
+    }
+
+    checkCriticalStats() {
+        const { economy, environment, happiness } = this.gameState.stats;
+        const warnings = [];
+
+        // Critical warnings (≤ 20)
+        if (economy <= 20 && economy > 0) {
+            warnings.push({
+                type: 'critical',
+                stat: 'economy',
+                message: '🚨 KHẨN CẤP: Người dân đang biểu tình về tình trạng kinh tế tồi tệ! Thất nghiệp tăng cao, các doanh nghiệp đóng cửa hàng loạt.'
+            });
+        }
+
+        if (environment <= 20 && environment > 0) {
+            warnings.push({
+                type: 'critical',
+                stat: 'environment',
+                message: '🚨 KHẨN CẤP: Các nhà hoạt động môi trường đang tổ chức biểu tình! Ô nhiễm không khí nghiêm trọng, nhiều người nhập viện vì bệnh hô hấp.'
+            });
+        }
+
+        if (happiness <= 20 && happiness > 0) {
+            warnings.push({
+                type: 'critical',
+                stat: 'happiness',
+                message: '🚨 KHẨN CẤP: Người dân xuống đường biểu tình phản đối chính quyền! Niềm tin vào chính phủ đang sụp đổ hoàn toàn.'
+            });
+        }
+
+        // Warning alerts (≤ 35)
+        if (economy <= 35 && economy > 20) {
+            warnings.push({
+                type: 'warning',
+                stat: 'economy',
+                message: '⚠️ Cảnh báo: Kinh tế đang suy thoái, người dân lo lắng về việc làm và thu nhập.'
+            });
+        }
+
+        if (environment <= 35 && environment > 20) {
+            warnings.push({
+                type: 'warning',
+                stat: 'environment',
+                message: '⚠️ Cảnh báo: Chất lượng môi trường đang xấu đi, các tổ chức bảo vệ môi trường lên tiếng phản đối.'
+            });
+        }
+
+        if (happiness <= 35 && happiness > 20) {
+            warnings.push({
+                type: 'warning',
+                stat: 'happiness',
+                message: '⚠️ Cảnh báo: Mức độ hài lòng của người dân giảm mạnh, nhiều khiếu nại được gửi lên chính quyền.'
+            });
+        }
+
+        if (warnings.length > 0) {
+            this.broadcastWarnings(warnings);
+        }
+    }
+
+    broadcastWarnings(warnings) {
+        this.players.forEach(player => {
+            player.socket.emit('statsWarnings', { warnings });
+        });
     }
 
     checkGameEnd() {
@@ -308,6 +386,9 @@ class GameRoom {
 
     broadcastGameState() {
         const currentMayor = this.getCurrentMayor();
+        const nonMayorPlayers = Array.from(this.players.values()).filter(p => !p.isMayor);
+        const voteCount = this.gameState.votes.size;
+
         const gameData = {
             currentYear: this.gameState.currentYear,
             maxYears: this.gameState.maxYears,
@@ -321,10 +402,13 @@ class GameRoom {
             players: Array.from(this.players.values()).map(p => ({
                 id: p.id,
                 name: p.name,
-                isMayor: p.isMayor
+                isMayor: p.isMayor,
+                hasVoted: this.gameState.phase === 'voting' && this.gameState.votes.has(p.id)
             })),
             cards: this.gameState.phase === 'proposing' ? this.currentCards : null,
-            proposedPolicy: this.gameState.proposedPolicy
+            proposedPolicy: this.gameState.proposedPolicy,
+            voteCount: voteCount,
+            totalVoters: nonMayorPlayers.length
         };
 
         this.players.forEach(player => {

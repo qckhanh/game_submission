@@ -152,6 +152,10 @@ class MultiplayerGame {
             this.showVoteResults(results);
         });
 
+        this.socket.on('statsWarnings', (data) => {
+            this.showStatsWarnings(data.warnings);
+        });
+
         this.socket.on('gameEnd', (result) => {
             this.showGameEnd(result);
         });
@@ -219,6 +223,52 @@ class MultiplayerGame {
     vote(voteType) {
         this.socket.emit('vote', { voteType });
         this.disableVotingButtons();
+        this.showVoteConfirmation(voteType);
+    }
+
+    showVoteConfirmation(voteType) {
+        // Create vote confirmation notification
+        const notification = document.createElement('div');
+        notification.className = 'vote-notification';
+
+        const voteMessages = {
+            approve: '✅ Bạn đã bỏ phiếu ĐỒNG Ý',
+            reject: '❌ Bạn đã bỏ phiếu KHÔNG ĐỒNG Ý',
+            abstain: '⚪ Bạn đã bỏ phiếu TRẮNG'
+        };
+
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-icon">${voteType === 'approve' ? '✅' : voteType === 'reject' ? '❌' : '⚪'}</span>
+                <span class="notification-text">${voteMessages[voteType]}</span>
+            </div>
+        `;
+
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => notification.classList.add('show'), 100);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
+    updateVoteCount(gameState) {
+        const nonMayorPlayers = gameState.players.filter(p => !p.isMayor);
+        const votedCount = gameState.voteCount || 0;
+
+        this.votesCount.textContent = votedCount;
+        this.totalVoters.textContent = nonMayorPlayers.length;
+
+        // Update progress bar
+        const progressPercent = nonMayorPlayers.length > 0 ? (votedCount / nonMayorPlayers.length) * 100 : 0;
+        const progressBar = document.querySelector('.vote-progress-bar');
+        if (progressBar) {
+            progressBar.style.width = `${progressPercent}%`;
+        }
     }
 
     updateGameState(gameState) {
@@ -230,6 +280,11 @@ class MultiplayerGame {
             this.showScreen('game');
             this.updateGameUI(gameState);
             this.updatePlayersStatus(gameState);
+
+            // Update real-time vote count
+            if (gameState.phase === 'voting') {
+                this.updateVoteCount(gameState);
+            }
 
             switch (gameState.phase) {
                 case 'proposing':
@@ -307,9 +362,8 @@ class MultiplayerGame {
                 statusElement.classList.add('mayor');
             }
 
-            // In voting phase, show who has voted
-            if (gameState.phase === 'voting' && !player.isMayor) {
-                // This would need server support to track votes
+            // Show who has voted in real-time
+            if (gameState.phase === 'voting' && !player.isMayor && player.hasVoted) {
                 statusElement.classList.add('voted');
             }
 
@@ -317,6 +371,7 @@ class MultiplayerGame {
                 ${player.isMayor ? '👑 ' : ''}
                 ${player.name}
                 ${player.id === this.playerId ? ' (Bạn)' : ''}
+                ${gameState.phase === 'voting' && !player.isMayor && player.hasVoted ? ' ✓' : ''}
             `;
 
             this.playersStatusList.appendChild(statusElement);
@@ -448,17 +503,32 @@ class MultiplayerGame {
     }
 
     startVotingCountdown() {
+        // Clear any existing timer
+        if (this.currentTimer) {
+            clearInterval(this.currentTimer);
+        }
+
         let timeLeft = 30;
         this.timerText.textContent = `${timeLeft}s`;
         this.timerFill.style.width = '100%';
 
-        const timer = setInterval(() => {
+        // Add pulsing effect when time is running out
+        this.timerFill.classList.remove('timer-warning', 'timer-critical');
+
+        this.currentTimer = setInterval(() => {
             timeLeft--;
             this.timerText.textContent = `${timeLeft}s`;
             this.timerFill.style.width = `${(timeLeft / 30) * 100}%`;
 
+            // Add visual warnings
+            if (timeLeft <= 10 && timeLeft > 5) {
+                this.timerFill.classList.add('timer-warning');
+            } else if (timeLeft <= 5) {
+                this.timerFill.classList.add('timer-critical');
+            }
+
             if (timeLeft <= 0) {
-                clearInterval(timer);
+                clearInterval(this.currentTimer);
                 this.disableVotingButtons();
             }
         }, 1000);
@@ -578,6 +648,49 @@ class MultiplayerGame {
 
     hideError() {
         this.errorModal.classList.add('hidden');
+    }
+
+    showStatsWarnings(warnings) {
+        // Clear existing warnings
+        const existingWarnings = document.getElementById('stats-warnings');
+        if (existingWarnings) {
+            existingWarnings.remove();
+        }
+
+        if (!warnings || warnings.length === 0) {
+            return;
+        }
+
+        // Create warnings container
+        const warningsContainer = document.createElement('div');
+        warningsContainer.id = 'stats-warnings';
+        warningsContainer.className = 'stats-warnings';
+
+        warnings.forEach(warning => {
+            const warningElement = document.createElement('div');
+            warningElement.className = `stats-warning ${warning.type}`;
+
+            warningElement.innerHTML = `
+                <div class="warning-content">
+                    <span class="warning-icon">${warning.type === 'critical' ? '🚨' : '⚠️'}</span>
+                    <span class="warning-text">${warning.message}</span>
+                </div>
+            `;
+
+            warningsContainer.appendChild(warningElement);
+        });
+
+        document.body.appendChild(warningsContainer);
+
+        // Animate in
+        setTimeout(() => warningsContainer.classList.add('show'), 100);
+
+        // Remove after 6 seconds for critical, 4 seconds for warnings
+        const displayTime = warnings.some(w => w.type === 'critical') ? 6000 : 4000;
+        setTimeout(() => {
+            warningsContainer.classList.remove('show');
+            setTimeout(() => warningsContainer.remove(), 300);
+        }, displayTime);
     }
 }
 
